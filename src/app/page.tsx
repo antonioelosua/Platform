@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useClient, useState, useEffect } from "react";
 
 function ChartRenderer() {
   useEffect(function() {
