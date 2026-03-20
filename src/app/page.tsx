@@ -2,6 +2,32 @@
 
 import { useState, useEffect } from "react";
 
+// ─── BEECKER LOGO SVG ─────────────────────────────────────────────────────────
+function BeeckerLogo({ dark = false, height = 28 }) {
+  // Gradient logo matching the colorful brand version
+  return (
+    <svg height={height} viewBox="0 0 160 42" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
+      <defs>
+        <linearGradient id="bLogoGrad" x1="0" y1="0" x2="160" y2="42" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#7B2FF7"/>
+          <stop offset="50%" stopColor="#C945B0"/>
+          <stop offset="100%" stopColor="#F0487A"/>
+        </linearGradient>
+        <linearGradient id="bIconGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#7B2FF7"/>
+          <stop offset="100%" stopColor="#F0487A"/>
+        </linearGradient>
+      </defs>
+      {/* B icon mark */}
+      <rect x="0" y="6" width="30" height="30" rx="8" fill="url(#bIconGrad)"/>
+      <path d="M8 12h9c2.5 0 4.5 2 4.5 4.5S19.5 21 17 21H8V12z" fill="white" opacity="0.95"/>
+      <path d="M8 21h10c2.8 0 5 2 5 4.5S20.8 30 18 30H8V21z" fill="white" opacity="0.95"/>
+      {/* Wordmark */}
+      <text x="38" y="30" fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" fontWeight="700" fontSize="22" letterSpacing="-0.5" fill={dark ? "white" : "url(#bLogoGrad)"}>eecker</text>
+    </svg>
+  );
+}
+
 // ─── TRANSLATIONS ─────────────────────────────────────────────────────────────
 const T = {
   en: {
@@ -136,7 +162,7 @@ const T = {
     areaFulls:{ h2r:"Contratación a Jubilación", p2p:"Compra a Pago", o2c:"Pedido a Cobro" },
     statusLabels:{"In progress":"En progreso","Successful":"Exitoso","Completed":"Completado","In review":"En revisión"},
     agentDetails:{
-      Fer:{module:"Planificación de Vacantes",trigger:"Nueva Vacante Detectada",what:"Detecta señales de nuevas vacantes e inicia automáticamente los flujos de solicitud.",problem:"Elimina el seguimiento manual de posiciones abiertas.",users:["Socios de negocio de RRHH","Planificadores de fuerza laboral","Personal de operaciones de RRHH","Apoyo de la oficina del CHCO"],capabilities:["Monitorea flujos de datos de personal","Prellena la solicitud con datos del puesto","Dirige el borrador a los aprobadores","Registra el evento disparador","Se integra con HRIS"],inputs:["Datos de planificación","Registros organizacionales","Avisos de rotación","Datos de clasificación","Reglas de enrutamiento"],outputs:["Registro de solicitud iniciada","Notificación a aprobadores","Prellenado de datos","Registro de auditoría"],maturity:"Listo para producción. Patrón repetible para entornos con HRIS.",limits:["Requiere datos limpios de puestos","Las señales dependen de la calidad del HRIS","No toma decisiones de contratación","Requiere integración con HRIS"]},
+      Fer:{module:"Planificación de Vacantes",trigger:"Nueva Vacante Detectada",what:"Detecta señales de nuevas vacantes e inicia automáticamente los flujos de solicitud.",problem:"Elimina el seguimiento manual de posiciones abiertas.",users:["Socios de negocio de RRHH","Planificadores de fuerza laboral","Personal de operaciones de RRHH","Apoyo de la oficina del CHCO"],capabilities:["Monitorea flujos de datos de personal","Prellena la solicitud con datos del puesto","Dirige el borrador a los aprobadores","Registra el evento disparador","Se integra con HRIS"],inputs:["Datos de planificación","Registros organizacionales","Avisos de rotación","Datos de clasificación","Reglas de enrutamiento"],outputs:["Registro de solicitud iniciada","Notificación a aprobadores","Prellenado de datos","Registro de auditoría"],maturity:"Listo para producción.",limits:["Requiere datos limpios de puestos","Las señales dependen de la calidad del HRIS","No toma decisiones de contratación","Requiere integración con HRIS"]},
       Lucas:{module:"Reclutamiento",trigger:"Nueva Solicitud Recibida",what:"Procesa solicitudes, evalúa candidatos y dirige calificados a revisores humanos.",problem:"Reduce la carga del filtrado manual en contrataciones de alto volumen.",users:["Especialistas de RRHH","Gerentes de contratación","Oficiales EEO","Equipos de talento"],capabilities:["Ingesta solicitudes de múltiples canales","Aplica criterios consistentes","Genera resúmenes de candidatos","Dirige a revisores","Mantiene documentación EEO"],inputs:["Solicitudes y currículums","Requisitos del puesto","Criterios de evaluación","Datos EEO","Resultados de evaluaciones"],outputs:["Lista filtrada con puntuaciones","Resúmenes estructurados","Cola de revisión","Documentación EEO","Registro de auditoría"],maturity:"Listo para producción.",limits:["Calidad depende de criterios claros","No realiza selecciones — solo asesoría","Requiere revisión humana","Se requiere ATS"]},
       Isa:{module:"Selección, Contratación e Incorporación",trigger:"Nueva Contratación Detectada",what:"Gestiona flujos de ofertas y ejecuta secuencias de incorporación hasta el primer día.",problem:"Elimina tareas omitidas y retrasos en el proceso de oferta a incorporación.",users:["Especialistas de incorporación","Personal de seguridad","Equipos de TI","Supervisores"],capabilities:["Activa secuencias al confirmar contratación","Rastrea documentación en tiempo real","Inicia verificaciones de antecedentes","Envía recordatorios automáticos","Coordina entre RRHH, TI y seguridad"],inputs:["Confirmación de aceptación","Datos del nuevo empleado","Lista de documentos","Reglas de antecedentes","Solicitudes de TI","Plantillas de tareas"],outputs:["Rastreador de tareas","Estado de documentación","Registro de antecedentes","Solicitud de acceso TI","Confirmación día uno","Registro de auditoría"],maturity:"Listo para producción.",limits:["No adjudica autorizaciones","Depende de respuesta del empleado","TI depende de capacidad externa","Requiere integración HRIS y TI"]},
       Ben:{module:"Desempeño y Desarrollo",trigger:"Evaluación Programada",what:"Orquesta ciclos de evaluación y consolida datos para informes de RRHH.",problem:"Previene fallas de cumplimiento por plazos omitidos.",users:["Especialistas de RRHH","Supervisores","Personal CHCO","Equipos L&D"],capabilities:["Programa ciclos","Recopila autoevaluaciones","Rastrea finalización","Marca vencidas","Consolida datos"],inputs:["Planilla de empleados","Plantillas","Formularios","Insumos de gerentes","Registros de capacitación"],outputs:["Panel de estado","Paquetes de evaluación","Alertas de vencidos","Datos consolidados","Reporte PDI","Auditoría"],maturity:"Listo para producción.",limits:["No asigna calificaciones","Depende de participación del supervisor","No sustituye el juicio del gerente","Requiere plataforma de desempeño"]},
@@ -184,7 +210,6 @@ const T = {
   },
 };
 
-// ─── AREA BASE ────────────────────────────────────────────────────────────────
 const areaBase = [
   { id:"h2r", color:"#7c3aed", light:"#f5f3ff", border:"#c4b5fd", agents:[{name:"Fer",icon:"JP"},{name:"Lucas",icon:"RC"},{name:"Isa",icon:"OB"},{name:"Ben",icon:"PM"},{name:"Lily",icon:"CP"},{name:"Lisa",icon:"TE"},{name:"Cleo",icon:"SR"}] },
   { id:"p2p", color:"#6d28d9", light:"#f5f0ff", border:"#c4b5fd", agents:[{name:"Alice",icon:"DP"},{name:"Jessica",icon:"SS"},{name:"Elsa",icon:"SO"},{name:"Olivia",icon:"PO"},{name:"Chris",icon:"GR"},{name:"Tony",icon:"IM"},{name:"Ryan",icon:"RM"},{name:"Daniel",icon:"IP"},{name:"David",icon:"PP"}] },
@@ -201,7 +226,6 @@ function getAreas(t) {
   return areaBase.map(a=>({ ...a, label:a.id.toUpperCase(), full:t.areaFulls[a.id], desc:t.areaDescs[a.id], agents:a.agents.map(ag=>({ ...ag, ...t.agentDetails[ag.name] })) }));
 }
 
-// ─── DEMO DATA ────────────────────────────────────────────────────────────────
 const demoAgentMeta = {
   Daniel:{ color:"#6d28d9", light:"#f5f0ff", border:"#c4b5fd", initials:"DA", role:"Invoice Processing & 3-Way Match", area:"P2P", inputType:"Supplier Invoices",
     files:[
@@ -250,278 +274,161 @@ const demoAgentMeta = {
   },
 };
 
-// ─── INVOICE PREVIEW ─────────────────────────────────────────────────────────
 function InvoicePreview({ file, agentName }) {
-  var meta = demoAgentMeta[agentName];
-  var c = meta.color;
-  var p = file.preview;
-  var isDocs = agentName==="Isa";
+  var meta = demoAgentMeta[agentName], c = meta.color, p = file.preview, isDocs = agentName==="Isa";
   return (
-    <div style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:10, overflow:"hidden", fontSize:12 }}>
-      <div style={{ background:isDocs?"#f5f3ff":"#f9fafb", padding:"14px 18px", borderBottom:"0.5px solid #e5e7eb", display:"flex", justifyContent:"space-between", alignItems:"flex-start" }}>
+    <div style={{ background:"#fff",border:"0.5px solid #e5e7eb",borderRadius:10,overflow:"hidden",fontSize:12 }}>
+      <div style={{ background:isDocs?"#f5f3ff":"#f9fafb",padding:"14px 18px",borderBottom:"0.5px solid #e5e7eb",display:"flex",justifyContent:"space-between",alignItems:"flex-start" }}>
         <div>
-          <div style={{ fontSize:10, color:"#9ca3af", letterSpacing:"0.07em", marginBottom:3 }}>{isDocs?"ONBOARDING PACKAGE":"INVOICE"}</div>
-          <div style={{ fontSize:15, fontWeight:600, color:"#111827" }}>{isDocs?p.name:p.vendor}</div>
-          <div style={{ fontSize:11, color:c, marginTop:2 }}>{isDocs?p.id:p.invoiceNo}</div>
+          <div style={{ fontSize:10,color:"#9ca3af",letterSpacing:"0.07em",marginBottom:3 }}>{isDocs?"ONBOARDING PACKAGE":"INVOICE"}</div>
+          <div style={{ fontSize:15,fontWeight:600,color:"#111827" }}>{isDocs?p.name:p.vendor}</div>
+          <div style={{ fontSize:11,color:c,marginTop:2 }}>{isDocs?p.id:p.invoiceNo}</div>
         </div>
         {!isDocs&&<div style={{ textAlign:"right" }}>
-          <div style={{ fontSize:18, fontWeight:700, color:"#111827" }}>{p.amount}</div>
-          <div style={{ fontSize:11, color:"#9ca3af", marginTop:2 }}>{p.date}</div>
-          {p.po&&<div style={{ fontSize:11, marginTop:2, color:p.po==="MISSING"?"#ef4444":c }}>PO: {p.po}</div>}
+          <div style={{ fontSize:18,fontWeight:700,color:"#111827" }}>{p.amount}</div>
+          <div style={{ fontSize:11,color:"#9ca3af",marginTop:2 }}>{p.date}</div>
+          {p.po&&<div style={{ fontSize:11,marginTop:2,color:p.po==="MISSING"?"#ef4444":c }}>PO: {p.po}</div>}
           {p.status&&<span style={{ display:"inline-block",marginTop:4,background:p.status==="Disputed"?"#fee2e2":p.status==="Partial payment"?"#fef3c7":"#dbeafe",color:p.status==="Disputed"?"#dc2626":p.status==="Partial payment"?"#92400e":"#1e40af",borderRadius:8,padding:"2px 8px",fontSize:10,fontWeight:500 }}>{p.status}</span>}
         </div>}
-        {isDocs&&<div style={{ textAlign:"right" }}>
-          <div style={{ fontSize:11, color:"#6b7280" }}>{p.position}</div>
-          <div style={{ fontSize:11, color:"#9ca3af", marginTop:2 }}>Start: {p.start}</div>
-          <div style={{ fontSize:11, color:"#9ca3af" }}>{p.dept}</div>
-        </div>}
+        {isDocs&&<div style={{ textAlign:"right" }}><div style={{ fontSize:11,color:"#6b7280" }}>{p.position}</div><div style={{ fontSize:11,color:"#9ca3af",marginTop:2 }}>Start: {p.start}</div><div style={{ fontSize:11,color:"#9ca3af" }}>{p.dept}</div></div>}
       </div>
       <div style={{ padding:"12px 18px" }}>
-        {!isDocs&&<>
-          <div style={{ display:"grid", gridTemplateColumns:"1fr auto auto", gap:"0 16px", marginBottom:6, fontSize:10, color:"#9ca3af", fontWeight:500, borderBottom:"0.5px solid #f3f4f6", paddingBottom:6 }}>
-            <span>DESCRIPTION</span><span style={{textAlign:"right"}}>UNIT</span><span style={{textAlign:"right"}}>TOTAL</span>
+        {!isDocs&&<><div style={{ display:"grid",gridTemplateColumns:"1fr auto auto",gap:"0 16px",marginBottom:6,fontSize:10,color:"#9ca3af",fontWeight:500,borderBottom:"0.5px solid #f3f4f6",paddingBottom:6 }}><span>DESCRIPTION</span><span style={{textAlign:"right"}}>UNIT</span><span style={{textAlign:"right"}}>TOTAL</span></div>
+        {p.items.map((item,i)=>(
+          <div key={i} style={{ display:"grid",gridTemplateColumns:"1fr auto auto",gap:"0 16px",padding:"5px 0",borderBottom:"0.5px solid #f9fafb" }}>
+            <span style={{ color:"#374151" }}>{item.desc}</span><span style={{ color:"#6b7280",textAlign:"right",whiteSpace:"nowrap" }}>{item.qty>1?`${item.qty} × `:""}{item.unit}</span><span style={{ fontWeight:500,color:"#111827",textAlign:"right" }}>{item.total}</span>
           </div>
-          {p.items.map((item,i)=>(
-            <div key={i} style={{ display:"grid", gridTemplateColumns:"1fr auto auto", gap:"0 16px", padding:"5px 0", borderBottom:"0.5px solid #f9fafb" }}>
-              <span style={{ color:"#374151" }}>{item.desc}</span>
-              <span style={{ color:"#6b7280", textAlign:"right", whiteSpace:"nowrap" }}>{item.qty>1?`${item.qty} × `:""}{item.unit}</span>
-              <span style={{ fontWeight:500, color:"#111827", textAlign:"right" }}>{item.total}</span>
-            </div>
-          ))}
-          <div style={{ display:"grid", gridTemplateColumns:"1fr auto", gap:"0 16px", marginTop:8, paddingTop:8, borderTop:"0.5px solid #e5e7eb" }}>
-            <span style={{ fontWeight:600, color:"#111827" }}>Total</span>
-            <span style={{ fontWeight:700, color:c }}>{p.amount}</span>
+        ))}
+        <div style={{ display:"grid",gridTemplateColumns:"1fr auto",gap:"0 16px",marginTop:8,paddingTop:8,borderTop:"0.5px solid #e5e7eb" }}><span style={{ fontWeight:600,color:"#111827" }}>Total</span><span style={{ fontWeight:700,color:c }}>{p.amount}</span></div></>}
+        {isDocs&&<><div style={{ fontSize:10,color:"#9ca3af",fontWeight:500,marginBottom:8,letterSpacing:"0.06em" }}>DOCUMENT CHECKLIST</div>
+        {p.items.map((item,i)=>(
+          <div key={i} style={{ display:"flex",justifyContent:"space-between",padding:"6px 0",borderBottom:"0.5px solid #f9fafb",fontSize:12 }}>
+            <span style={{ color:"#374151" }}>{item.desc}</span><span>{item.status}</span>
           </div>
-        </>}
-        {isDocs&&<>
-          <div style={{ fontSize:10, color:"#9ca3af", fontWeight:500, marginBottom:8, letterSpacing:"0.06em" }}>DOCUMENT CHECKLIST</div>
-          {p.items.map((item,i)=>(
-            <div key={i} style={{ display:"flex", justifyContent:"space-between", padding:"6px 0", borderBottom:"0.5px solid #f9fafb", fontSize:12 }}>
-              <span style={{ color:"#374151" }}>{item.desc}</span><span>{item.status}</span>
-            </div>
-          ))}
-        </>}
+        ))}</>}
       </div>
     </div>
   );
 }
 
-// ─── DEMO TAB ─────────────────────────────────────────────────────────────────
-function DemoTab({ demoAgent, setDemoAgent, demoFile, setDemoFile, demoEmail, setDemoEmail, demoSent, setDemoSent, demoWorking, setDemoWorking, demoStage, setDemoStage, demoLog, setDemoLog }) {
-  var meta = demoAgentMeta[demoAgent];
-  var c = meta.color;
-  var [emailLoading, setEmailLoading] = useState(false);
-  var [emailReady, setEmailReady] = useState(false);
-  var [emailSubject, setEmailSubject] = useState("");
-  var [emailBody, setEmailBody] = useState("");
+function DemoTab({ demoAgent,setDemoAgent,demoFile,setDemoFile,demoEmail,setDemoEmail,demoSent,setDemoSent,demoWorking,setDemoWorking,demoStage,setDemoStage,demoLog,setDemoLog }) {
+  var meta = demoAgentMeta[demoAgent], c = meta.color;
+  var [emailLoading,setEmailLoading]=useState(false);
+  var [emailReady,setEmailReady]=useState(false);
+  var [emailSubject,setEmailSubject]=useState("");
+  var [emailBody,setEmailBody]=useState("");
 
   function buildPdfBlob(file) {
-    var p = file.preview;
-    var isDocs = demoAgent==="Isa";
-    var lines = isDocs
-      ? [`ONBOARDING PACKAGE — ${p.name}`,`ID: ${p.id}`,`Position: ${p.position}`,`Start Date: ${p.start}`,`Department: ${p.dept}`,``,`DOCUMENT CHECKLIST:`,...p.items.map(i=>`  ${i.status}  ${i.desc}`)]
-      : [`INVOICE`,`Vendor: ${p.vendor}`,`Invoice #: ${p.invoiceNo}`,`Amount: ${p.amount}`,`Date: ${p.date}`,`PO: ${p.po||"N/A"}`,``,`LINE ITEMS:`,...p.items.map(i=>`  ${i.desc}  ${i.unit}  ${i.total}`),``,`TOTAL: ${p.amount}`];
-    var blob = new Blob([lines.join("\n")], {type:"application/pdf"});
-    return URL.createObjectURL(blob);
+    var p=file.preview,isDocs=demoAgent==="Isa";
+    var lines=isDocs?[`ONBOARDING PACKAGE — ${p.name}`,`ID: ${p.id}`,`Position: ${p.position}`,`Start Date: ${p.start}`,`Department: ${p.dept}`,``,`DOCUMENT CHECKLIST:`,...p.items.map(i=>`  ${i.status}  ${i.desc}`)]:[`INVOICE`,`Vendor: ${p.vendor}`,`Invoice #: ${p.invoiceNo}`,`Amount: ${p.amount}`,`Date: ${p.date}`,`PO: ${p.po||"N/A"}`,``,`LINE ITEMS:`,...p.items.map(i=>`  ${i.desc}  ${i.unit}  ${i.total}`),``,`TOTAL: ${p.amount}`];
+    return URL.createObjectURL(new Blob([lines.join("\n")],{type:"application/pdf"}));
   }
 
   function handleSend() {
     if(!demoEmail.trim()||!demoFile) return;
-    setDemoSent(true); setDemoWorking(true); setDemoStage(0); setDemoLog([]);
-    var logs = meta.agentLog(demoFile, demoEmail);
+    setDemoSent(true);setDemoWorking(true);setDemoStage(0);setDemoLog([]);
+    var logs=meta.agentLog(demoFile,demoEmail);
     logs.forEach((entry,i)=>{
       setTimeout(()=>{
         setDemoLog(prev=>[...prev,{msg:entry.msg,time:new Date().toLocaleTimeString()}]);
         setDemoStage(i+1);
-        if(i===logs.length-1){
-          setDemoWorking(false);
-          // Generate confirmation email via Anthropic API
-          generateConfirmationEmail(demoFile, demoEmail, logs.map(l=>l.msg));
-        }
-      }, entry.t);
+        if(i===logs.length-1){setDemoWorking(false);generateConfirmationEmail(demoFile,demoEmail,logs.map(l=>l.msg));}
+      },entry.t);
     });
   }
 
-  async function generateConfirmationEmail(file, email, logMsgs) {
-    setEmailLoading(true);
-    setEmailReady(false);
+  async function generateConfirmationEmail(file,email,logMsgs) {
+    setEmailLoading(true);setEmailReady(false);
     try {
-      var p = file.preview;
-      var isDocs = demoAgent==="Isa";
-      var summary = isDocs
-        ? `Onboarding package for ${p.name} (${p.position}), ID: ${p.id}, Start date: ${p.start}`
-        : `Invoice ${p.invoiceNo||p.id} from ${p.vendor||p.name}, Amount: ${p.amount}, Status: ${p.status||"Processed"}`;
-      var prompt = `You are ${demoAgent}, an AI agent at Beecker working in ${meta.area} (${meta.role}).
-
-A document was just submitted to you by ${email} and you have finished processing it.
-
-Document summary: ${summary}
-
-Your processing log (what you actually did):
-${logMsgs.map((m,i)=>`${i+1}. ${m}`).join("\n")}
-
-Write a professional, concise confirmation email back to ${email}. 
-- Subject line on first line starting with "Subject: "
-- Then a blank line
-- Then the email body
-- Sign off as "${demoAgent} · Beecker AI Agent · ${meta.area}"
-- Keep it under 200 words, friendly but professional
-- Reference specific details from the document and log
-- If there were any flags or exceptions (⚠️), mention them clearly and what action was taken`;
-
-      var res = await fetch("https://api.anthropic.com/v1/messages",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-          model:"claude-sonnet-4-20250514",
-          max_tokens:1000,
-          messages:[{role:"user",content:prompt}]
-        })
-      });
-      var data = await res.json();
-      var text = data.content?.[0]?.text||"";
-      var lines = text.split("\n");
-      var subjectLine = lines.find(l=>l.startsWith("Subject:")) || "Subject: Document Processing Confirmation";
-      var subject = subjectLine.replace("Subject:","").trim();
-      var bodyStart = lines.indexOf(subjectLine)+1;
-      while(bodyStart<lines.length && lines[bodyStart].trim()==="") bodyStart++;
-      var body = lines.slice(bodyStart).join("\n");
-      setEmailSubject(subject);
-      setEmailBody(body);
-      setEmailReady(true);
-    } catch(e) {
-      setEmailSubject("Processing Confirmation");
-      setEmailBody(`Dear user,\n\nYour document has been processed by ${demoAgent}.\n\nBest regards,\n${demoAgent} · Beecker AI Agent`);
-      setEmailReady(true);
-    }
+      var p=file.preview,isDocs=demoAgent==="Isa";
+      var summary=isDocs?`Onboarding package for ${p.name} (${p.position}), ID: ${p.id}, Start date: ${p.start}`:`Invoice ${p.invoiceNo||p.id} from ${p.vendor||p.name}, Amount: ${p.amount}, Status: ${p.status||"Processed"}`;
+      var prompt=`You are ${demoAgent}, an AI agent at Beecker working in ${meta.area} (${meta.role}).\n\nA document was just submitted to you by ${email} and you have finished processing it.\n\nDocument summary: ${summary}\n\nYour processing log:\n${logMsgs.map((m,i)=>`${i+1}. ${m}`).join("\n")}\n\nWrite a professional, concise confirmation email back to ${email}.\n- Subject line on first line starting with "Subject: "\n- Then a blank line\n- Then the email body\n- Sign off as "${demoAgent} · Beecker AI Agent · ${meta.area}"\n- Keep it under 200 words, friendly but professional\n- Reference specific details from the document and log\n- If there were any flags or exceptions (⚠️), mention them clearly`;
+      var res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:prompt}]})});
+      var data=await res.json(),text=data.content?.[0]?.text||"";
+      var lines=text.split("\n"),subjectLine=lines.find(l=>l.startsWith("Subject:"))||"Subject: Document Processing Confirmation";
+      var subject=subjectLine.replace("Subject:","").trim(),bodyStart=lines.indexOf(subjectLine)+1;
+      while(bodyStart<lines.length&&lines[bodyStart].trim()==="")bodyStart++;
+      setEmailSubject(subject);setEmailBody(lines.slice(bodyStart).join("\n"));setEmailReady(true);
+    } catch(e) {setEmailSubject("Processing Confirmation");setEmailBody(`Dear user,\n\nYour document has been processed by ${demoAgent}.\n\nBest regards,\n${demoAgent} · Beecker AI Agent`);setEmailReady(true);}
     setEmailLoading(false);
   }
 
-  function reset() { setDemoSent(false); setDemoWorking(false); setDemoStage(0); setDemoLog([]); setDemoFile(null); setDemoEmail(""); setEmailLoading(false); setEmailReady(false); setEmailSubject(""); setEmailBody(""); }
+  function reset(){setDemoSent(false);setDemoWorking(false);setDemoStage(0);setDemoLog([]);setDemoFile(null);setDemoEmail("");setEmailLoading(false);setEmailReady(false);setEmailSubject("");setEmailBody("");}
 
   return (
-    <div style={{ padding:"40px 32px", maxWidth:1020, margin:"0 auto" }}>
+    <div style={{ padding:"40px 32px",maxWidth:1020,margin:"0 auto" }}>
       <div style={{ marginBottom:28 }}>
-        <div style={{ fontSize:11, fontWeight:500, color:"#9ca3af", letterSpacing:"0.08em", marginBottom:6 }}>BEECKER AUTONOMOUS AGENTS</div>
-        <h1 style={{ margin:"0 0 8px", fontSize:26, fontWeight:500, color:"#111827" }}>Live Demo</h1>
-        <p style={{ margin:0, fontSize:14, color:"#6b7280", maxWidth:560 }}>Select an agent, pick a sample document, then send it to the agent and watch it process in real time.</p>
+        <div style={{ fontSize:11,fontWeight:500,color:"#9ca3af",letterSpacing:"0.08em",marginBottom:6 }}>BEECKER AUTONOMOUS AGENTS</div>
+        <h1 style={{ margin:"0 0 8px",fontSize:26,fontWeight:500,color:"#111827" }}>Live Demo</h1>
+        <p style={{ margin:0,fontSize:14,color:"#6b7280",maxWidth:560 }}>Select an agent, pick a sample document, then send it to the agent and watch it process in real time.</p>
       </div>
-      <div style={{ display:"grid", gridTemplateColumns:"340px 1fr", gap:24 }}>
-        {/* LEFT */}
-        <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
-          {/* Step 1 */}
-          <div style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:10, padding:"18px 20px" }}>
-            <div style={{ fontSize:11, fontWeight:600, color:"#9ca3af", letterSpacing:"0.07em", marginBottom:12 }}>STEP 1 — SELECT AGENT</div>
-            <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+      <div style={{ display:"grid",gridTemplateColumns:"340px 1fr",gap:24 }}>
+        <div style={{ display:"flex",flexDirection:"column",gap:16 }}>
+          <div style={{ background:"#fff",border:"0.5px solid #e5e7eb",borderRadius:10,padding:"18px 20px" }}>
+            <div style={{ fontSize:11,fontWeight:600,color:"#9ca3af",letterSpacing:"0.07em",marginBottom:12 }}>STEP 1 — SELECT AGENT</div>
+            <div style={{ display:"flex",flexDirection:"column",gap:8 }}>
               {["Daniel","Isa","Nina"].map(name=>{
-                var m=demoAgentMeta[name]; var active=demoAgent===name;
+                var m=demoAgentMeta[name],active=demoAgent===name;
                 return (
-                  <button key={name} onClick={()=>{setDemoAgent(name);reset();}}
-                    style={{ display:"flex",alignItems:"center",gap:12,padding:"10px 14px",borderRadius:8,border:`0.5px solid ${active?m.border:"#e5e7eb"}`,background:active?m.light:"#fafafa",cursor:"pointer",textAlign:"left" }}>
+                  <button key={name} onClick={()=>{setDemoAgent(name);reset();}} style={{ display:"flex",alignItems:"center",gap:12,padding:"10px 14px",borderRadius:8,border:`0.5px solid ${active?m.border:"#e5e7eb"}`,background:active?m.light:"#fafafa",cursor:"pointer",textAlign:"left" }}>
                     <div style={{ width:34,height:34,borderRadius:"50%",background:m.color,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>
                       <span style={{ fontSize:12,fontWeight:600,color:"#fff" }}>{m.initials}</span>
                     </div>
-                    <div style={{ flex:1 }}>
-                      <div style={{ fontSize:13,fontWeight:500,color:"#111827" }}>{name}</div>
-                      <div style={{ fontSize:11,color:m.color }}>{m.role}</div>
-                    </div>
+                    <div style={{ flex:1 }}><div style={{ fontSize:13,fontWeight:500,color:"#111827" }}>{name}</div><div style={{ fontSize:11,color:m.color }}>{m.role}</div></div>
                     {active&&<svg style={{ marginLeft:"auto",flexShrink:0 }} width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" fill={m.color}/><path d="M4 7l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
                   </button>
                 );
               })}
             </div>
           </div>
-          {/* Step 2 */}
-          <div style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:10, padding:"18px 20px" }}>
-            <div style={{ fontSize:11, fontWeight:600, color:"#9ca3af", letterSpacing:"0.07em", marginBottom:4 }}>STEP 2 — CHOOSE DOCUMENT</div>
-            <div style={{ fontSize:11, color:"#9ca3af", marginBottom:12 }}>Sample {meta.inputType}</div>
-            <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+          <div style={{ background:"#fff",border:"0.5px solid #e5e7eb",borderRadius:10,padding:"18px 20px" }}>
+            <div style={{ fontSize:11,fontWeight:600,color:"#9ca3af",letterSpacing:"0.07em",marginBottom:4 }}>STEP 2 — CHOOSE DOCUMENT</div>
+            <div style={{ fontSize:11,color:"#9ca3af",marginBottom:12 }}>Sample {meta.inputType}</div>
+            <div style={{ display:"flex",flexDirection:"column",gap:8 }}>
               {meta.files.map((f,i)=>{
                 var active=demoFile&&demoFile.name===f.name;
                 return (
-                  <div key={i} style={{ border:`0.5px solid ${active?c:"#e5e7eb"}`,borderRadius:8,padding:"10px 12px",background:active?meta.light:"#fafafa",cursor:"pointer" }}
-                    onClick={()=>{if(!demoSent) setDemoFile(f);}}>
+                  <div key={i} style={{ border:`0.5px solid ${active?c:"#e5e7eb"}`,borderRadius:8,padding:"10px 12px",background:active?meta.light:"#fafafa",cursor:"pointer" }} onClick={()=>{if(!demoSent)setDemoFile(f);}}>
                     <div style={{ display:"flex",alignItems:"center",gap:10 }}>
                       <span style={{ fontSize:18 }}>{f.icon}</span>
-                      <div style={{ flex:1,minWidth:0 }}>
-                        <div style={{ fontSize:12,fontWeight:500,color:"#111827",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis" }}>{f.name}</div>
-                        <div style={{ fontSize:11,color:"#9ca3af" }}>{f.size} · PDF</div>
-                      </div>
+                      <div style={{ flex:1,minWidth:0 }}><div style={{ fontSize:12,fontWeight:500,color:"#111827",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis" }}>{f.name}</div><div style={{ fontSize:11,color:"#9ca3af" }}>{f.size} · PDF</div></div>
                       {active&&<svg style={{ flexShrink:0 }} width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" fill={c}/><path d="M4 7l2 2 4-4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
                     </div>
-                    {active&&(
-                      <a href={buildPdfBlob(f)} download={f.name} onClick={e=>e.stopPropagation()}
-                        style={{ display:"inline-flex",alignItems:"center",gap:5,marginTop:8,fontSize:11,color:c,textDecoration:"none",background:"#fff",border:`0.5px solid ${meta.border}`,borderRadius:5,padding:"4px 10px" }}>
-                        <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1v6M2.5 5l3 3 3-3M1 9.5h9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                        Download PDF
-                      </a>
-                    )}
+                    {active&&<a href={buildPdfBlob(f)} download={f.name} onClick={e=>e.stopPropagation()} style={{ display:"inline-flex",alignItems:"center",gap:5,marginTop:8,fontSize:11,color:c,textDecoration:"none",background:"#fff",border:`0.5px solid ${meta.border}`,borderRadius:5,padding:"4px 10px" }}><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1v6M2.5 5l3 3 3-3M1 9.5h9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>Download PDF</a>}
                   </div>
                 );
               })}
             </div>
           </div>
-          {/* Step 3 */}
-          <div style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:10, padding:"18px 20px" }}>
-            <div style={{ fontSize:11, fontWeight:600, color:"#9ca3af", letterSpacing:"0.07em", marginBottom:12 }}>STEP 3 — SEND TO AGENT</div>
-            <div style={{ fontSize:12, color:"#6b7280", marginBottom:8 }}>Simulate sending from your email address:</div>
-            <input value={demoEmail} onChange={e=>setDemoEmail(e.target.value)} disabled={demoSent}
-              placeholder="your@email.com"
-              style={{ width:"100%",boxSizing:"border-box",fontSize:13,padding:"8px 12px",borderRadius:8,border:"0.5px solid #d1d5db",background:demoSent?"#f9fafb":"#fff",color:"#111827",outline:"none",marginBottom:10 }}/>
-            {!demoSent
-              ? <button onClick={handleSend} disabled={!demoFile||!demoEmail.trim()}
-                  style={{ width:"100%",padding:"9px",borderRadius:8,background:(!demoFile||!demoEmail.trim())?"#e5e7eb":c,border:"none",cursor:(!demoFile||!demoEmail.trim())?"not-allowed":"pointer",color:(!demoFile||!demoEmail.trim())?"#9ca3af":"#fff",fontSize:13,fontWeight:500 }}>
-                  Send to {demoAgent} →
-                </button>
-              : <button onClick={reset}
-                  style={{ width:"100%",padding:"9px",borderRadius:8,background:"#fff",border:`0.5px solid ${meta.border}`,cursor:"pointer",color:c,fontSize:13,fontWeight:500 }}>
-                  ↺ Reset Demo
-                </button>
-            }
+          <div style={{ background:"#fff",border:"0.5px solid #e5e7eb",borderRadius:10,padding:"18px 20px" }}>
+            <div style={{ fontSize:11,fontWeight:600,color:"#9ca3af",letterSpacing:"0.07em",marginBottom:12 }}>STEP 3 — SEND TO AGENT</div>
+            <div style={{ fontSize:12,color:"#6b7280",marginBottom:8 }}>Simulate sending from your email address:</div>
+            <input value={demoEmail} onChange={e=>setDemoEmail(e.target.value)} disabled={demoSent} placeholder="your@email.com" style={{ width:"100%",boxSizing:"border-box",fontSize:13,padding:"8px 12px",borderRadius:8,border:"0.5px solid #d1d5db",background:demoSent?"#f9fafb":"#fff",color:"#111827",outline:"none",marginBottom:10 }}/>
+            {!demoSent?<button onClick={handleSend} disabled={!demoFile||!demoEmail.trim()} style={{ width:"100%",padding:"9px",borderRadius:8,background:(!demoFile||!demoEmail.trim())?"#e5e7eb":c,border:"none",cursor:(!demoFile||!demoEmail.trim())?"not-allowed":"pointer",color:(!demoFile||!demoEmail.trim())?"#9ca3af":"#fff",fontSize:13,fontWeight:500 }}>Send to {demoAgent} →</button>
+            :<button onClick={reset} style={{ width:"100%",padding:"9px",borderRadius:8,background:"#fff",border:`0.5px solid ${meta.border}`,cursor:"pointer",color:c,fontSize:13,fontWeight:500 }}>↺ Reset Demo</button>}
           </div>
         </div>
-
-        {/* RIGHT */}
-        <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
-          {demoFile
-            ? <InvoicePreview file={demoFile} agentName={demoAgent}/>
-            : <div style={{ background:"#fff",border:"0.5px dashed #d1d5db",borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",minHeight:220,flexDirection:"column",gap:8 }}>
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="6" y="2" width="16" height="20" rx="2" stroke="#d1d5db" strokeWidth="1.5"/><path d="M18 2v6h4" stroke="#d1d5db" strokeWidth="1.5" strokeLinejoin="round"/><path d="M10 14h8M10 18h5" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                <span style={{ fontSize:13,color:"#9ca3af" }}>Select a document to preview it here</span>
-              </div>
-          }
+        <div style={{ display:"flex",flexDirection:"column",gap:16 }}>
+          {demoFile?<InvoicePreview file={demoFile} agentName={demoAgent}/>:<div style={{ background:"#fff",border:"0.5px dashed #d1d5db",borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",minHeight:220,flexDirection:"column",gap:8 }}><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="6" y="2" width="16" height="20" rx="2" stroke="#d1d5db" strokeWidth="1.5"/><path d="M18 2v6h4" stroke="#d1d5db" strokeWidth="1.5" strokeLinejoin="round"/><path d="M10 14h8M10 18h5" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round"/></svg><span style={{ fontSize:13,color:"#9ca3af" }}>Select a document to preview it here</span></div>}
           {demoSent&&(
-            <div style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:10, overflow:"hidden" }}>
+            <div style={{ background:"#fff",border:"0.5px solid #e5e7eb",borderRadius:10,overflow:"hidden" }}>
               <div style={{ background:meta.light,padding:"14px 18px",borderBottom:"0.5px solid #e5e7eb",display:"flex",alignItems:"center",gap:12 }}>
-                <div style={{ width:38,height:38,borderRadius:"50%",background:c,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>
-                  <span style={{ fontSize:13,fontWeight:600,color:"#fff" }}>{meta.initials}</span>
-                </div>
-                <div>
-                  <div style={{ fontSize:14,fontWeight:500,color:"#111827" }}>{demoAgent}</div>
-                  <div style={{ fontSize:11,color:c }}>{meta.role}</div>
-                </div>
+                <div style={{ width:38,height:38,borderRadius:"50%",background:c,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}><span style={{ fontSize:13,fontWeight:600,color:"#fff" }}>{meta.initials}</span></div>
+                <div><div style={{ fontSize:14,fontWeight:500,color:"#111827" }}>{demoAgent}</div><div style={{ fontSize:11,color:c }}>{meta.role}</div></div>
                 <div style={{ marginLeft:"auto",display:"flex",alignItems:"center",gap:6 }}>
-                  {demoWorking
-                    ? <><div style={{ width:8,height:8,borderRadius:"50%",background:"#f59e0b",animation:"pulse-ring 1.4s ease-out infinite" }}></div><span style={{ fontSize:11,color:"#92400e",fontWeight:500 }}>Processing…</span></>
-                    : <><div style={{ width:8,height:8,borderRadius:"50%",background:"#22c55e" }}></div><span style={{ fontSize:11,color:"#166534",fontWeight:500 }}>Complete</span></>
-                  }
+                  {demoWorking?<><div style={{ width:8,height:8,borderRadius:"50%",background:"#f59e0b",animation:"pulse-ring 1.4s ease-out infinite" }}></div><span style={{ fontSize:11,color:"#92400e",fontWeight:500 }}>Processing…</span></>:<><div style={{ width:8,height:8,borderRadius:"50%",background:"#22c55e" }}></div><span style={{ fontSize:11,color:"#166534",fontWeight:500 }}>Complete</span></>}
                 </div>
               </div>
-              <div style={{ padding:"10px 18px",background:"#f0fdf4",borderBottom:"0.5px solid #dcfce7",fontSize:12,color:"#166534" }}>
-                📨 Document received from <strong>{demoEmail}</strong> · <span style={{ color:"#9ca3af" }}>{new Date().toLocaleString()}</span>
-              </div>
+              <div style={{ padding:"10px 18px",background:"#f0fdf4",borderBottom:"0.5px solid #dcfce7",fontSize:12,color:"#166534" }}>📨 Document received from <strong>{demoEmail}</strong> · <span style={{ color:"#9ca3af" }}>{new Date().toLocaleString()}</span></div>
               <div style={{ padding:"16px 18px",borderBottom:"0.5px solid #f3f4f6" }}>
                 <div style={{ display:"flex",alignItems:"flex-start" }}>
                   {meta.stages.map((st,i)=>{
-                    var done=demoStage>i+1; var active=demoStage===i+1;
-                    var bg=done?c:active?"#f59e0b":"#e5e7eb";
-                    var textC=done?c:active?"#92400e":"#9ca3af";
+                    var done=demoStage>i+1,active=demoStage===i+1,bg=done?c:active?"#f59e0b":"#e5e7eb",textC=done?c:active?"#92400e":"#9ca3af";
                     return (
                       <div key={i} style={{ flex:1,display:"flex",flexDirection:"column",alignItems:"center",position:"relative" }}>
                         {i<meta.stages.length-1&&<div style={{ position:"absolute",top:13,left:"50%",width:"100%",height:2,background:done?c+"55":"#e5e7eb",zIndex:0 }}></div>}
                         <div className={active?"thinking-dot":""} style={{ width:26,height:26,borderRadius:"50%",background:done?c+"18":active?"#fef3c7":"#f9fafb",border:"2px solid "+bg,display:"flex",alignItems:"center",justifyContent:"center",position:"relative",zIndex:1,marginBottom:6 }}>
-                          {done?<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5 4.5-4.5" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                               :<div style={{ width:7,height:7,borderRadius:"50%",background:bg }}></div>}
+                          {done?<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5 4.5-4.5" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>:<div style={{ width:7,height:7,borderRadius:"50%",background:bg }}></div>}
                         </div>
                         <div style={{ fontSize:10,fontWeight:500,color:textC,textAlign:"center",maxWidth:80,lineHeight:1.3 }}>{st}</div>
                       </div>
@@ -538,13 +445,21 @@ Write a professional, concise confirmation email back to ${email}.
                     <span style={{ fontSize:12,color:entry.msg.startsWith("⚠️")?"#c2410c":"#374151",lineHeight:1.5 }}>{entry.msg}</span>
                   </div>
                 ))}
-                {demoWorking&&(
-                  <div style={{ display:"flex",alignItems:"center",gap:8,marginTop:4 }}>
-                    <div style={{ width:14,height:14,borderRadius:"50%",border:`2px solid ${c}`,borderTopColor:"transparent",animation:"spin 0.8s linear infinite" }}></div>
-                    <span style={{ fontSize:12,color:"#9ca3af" }}>Agent working…</span>
-                  </div>
-                )}
+                {demoWorking&&<div style={{ display:"flex",alignItems:"center",gap:8,marginTop:4 }}><div style={{ width:14,height:14,borderRadius:"50%",border:`2px solid ${c}`,borderTopColor:"transparent",animation:"spin 0.8s linear infinite" }}></div><span style={{ fontSize:12,color:"#9ca3af" }}>Agent working…</span></div>}
               </div>
+              {emailReady&&(
+                <div style={{ margin:"0 18px 18px",background:"#f8fafc",border:"0.5px solid #e2e8f0",borderRadius:8,overflow:"hidden" }}>
+                  <div style={{ background:"#fff",padding:"10px 14px",borderBottom:"0.5px solid #e2e8f0",display:"flex",alignItems:"center",gap:8 }}>
+                    <span style={{ fontSize:10,color:"#9ca3af",letterSpacing:"0.06em",fontWeight:500 }}>AI-GENERATED REPLY</span>
+                    <span style={{ marginLeft:"auto",background:"#dcfce7",color:"#166534",borderRadius:5,padding:"2px 8px",fontSize:10,fontWeight:500 }}>Sent</span>
+                  </div>
+                  <div style={{ padding:"12px 14px" }}>
+                    <div style={{ fontSize:12,fontWeight:600,color:"#111827",marginBottom:6 }}>{emailSubject}</div>
+                    <div style={{ fontSize:12,color:"#374151",lineHeight:1.65,whiteSpace:"pre-wrap" }}>{emailBody}</div>
+                  </div>
+                </div>
+              )}
+              {emailLoading&&<div style={{ margin:"0 18px 18px",padding:"14px",background:"#f9fafb",borderRadius:8,display:"flex",alignItems:"center",gap:8 }}><div style={{ width:14,height:14,borderRadius:"50%",border:`2px solid ${c}`,borderTopColor:"transparent",animation:"spin 0.8s linear infinite" }}></div><span style={{ fontSize:12,color:"#9ca3af" }}>Composing confirmation email…</span></div>}
             </div>
           )}
         </div>
@@ -553,7 +468,6 @@ Write a professional, concise confirmation email back to ${email}.
   );
 }
 
-// ─── LIVE BADGE ───────────────────────────────────────────────────────────────
 function LiveActiveBadge({ t }) {
   return (
     <span style={{ display:"inline-flex",alignItems:"center",gap:6,background:"#dcfce7",color:"#166534",borderRadius:10,padding:"3px 10px",fontSize:11,fontWeight:500 }}>
@@ -566,7 +480,6 @@ function LiveActiveBadge({ t }) {
   );
 }
 
-// ─── AGENT DETAIL ─────────────────────────────────────────────────────────────
 function AgentDetail({ agent:a, area, onBack, onHome, t }) {
   var c=area.color;
   function Row({ label, items }) {
@@ -653,25 +566,19 @@ function AgentDetail({ agent:a, area, onBack, onHome, t }) {
   );
 }
 
-// ─── RUN DETAIL ───────────────────────────────────────────────────────────────
 function RunDetail({ run, agent:ag, onBack, t }) {
-  var c=ag.color;
-  var [msgs,setMsgs]=useState([]);
-  var [input,setInput]=useState("");
-  function sendMsg() {
-    if(!input.trim()) return;
+  var c=ag.color,[msgs,setMsgs]=useState([]),[input,setInput]=useState("");
+  function sendMsg(){
+    if(!input.trim())return;
     var nm=msgs.concat([{from:"user",name:"You",time:"now",msg:input}]);
-    setMsgs(nm); setInput("");
+    setMsgs(nm);setInput("");
     setTimeout(()=>setMsgs(nm.concat([{from:"agent",name:ag.name,time:"now",msg:t.agentReply(run.ref)}])),800);
   }
   var allMsgs=run.chat.concat(msgs);
   return (
     <div style={{ padding:"0 32px 32px",maxWidth:960,margin:"0 auto" }}>
       <div style={{ display:"flex",alignItems:"center",gap:10,padding:"20px 0 16px" }}>
-        <button onClick={onBack} style={{ fontSize:12,padding:"6px 12px",borderRadius:6,border:"0.5px solid #e5e7eb",color:"#6b7280",cursor:"pointer",background:"#fff",display:"flex",alignItems:"center",gap:5 }}>
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M8 10.5L4.5 7 8 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          {t.backTo} {ag.name}
-        </button>
+        <button onClick={onBack} style={{ fontSize:12,padding:"6px 12px",borderRadius:6,border:"0.5px solid #e5e7eb",color:"#6b7280",cursor:"pointer",background:"#fff",display:"flex",alignItems:"center",gap:5 }}><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M8 10.5L4.5 7 8 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>{t.backTo} {ag.name}</button>
         <span style={{ fontSize:11,color:"#9ca3af" }}>›</span>
         <span style={{ fontSize:12,color:c,fontWeight:500 }}>{run.ref}</span>
         <span style={{ fontSize:11,color:"#9ca3af" }}>· {run.desc}</span>
@@ -679,23 +586,19 @@ function RunDetail({ run, agent:ag, onBack, t }) {
       <div style={{ background:"#fff",border:"0.5px solid #e5e7eb",borderRadius:10,padding:"18px 20px",marginBottom:16 }}>
         <div style={{ fontSize:13,fontWeight:500,color:"#111827",marginBottom:14 }}>{t.transactionDetails}</div>
         <div style={{ display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"10px 24px" }}>
-          {run.details.map((d,i)=>(
-            <div key={i}><div style={{ fontSize:11,color:"#9ca3af",marginBottom:2 }}>{d.label}</div><div style={{ fontSize:13,color:"#111827",fontWeight:500 }}>{d.val}</div></div>
-          ))}
+          {run.details.map((d,i)=><div key={i}><div style={{ fontSize:11,color:"#9ca3af",marginBottom:2 }}>{d.label}</div><div style={{ fontSize:13,color:"#111827",fontWeight:500 }}>{d.val}</div></div>)}
         </div>
       </div>
       <div style={{ background:"#fff",border:"0.5px solid #e5e7eb",borderRadius:10,padding:"18px 20px",marginBottom:16 }}>
         <div style={{ fontSize:13,fontWeight:500,color:"#111827",marginBottom:20 }}>{t.processingTimeline}</div>
         <div style={{ display:"flex",alignItems:"flex-start",padding:"0 20px" }}>
           {run.stages.map((st,i)=>{
-            var done=run.stageStatus[i]; var active=!done&&(i===0||run.stageStatus[i-1]);
-            var bg=done?c:active?"#f59e0b":"#e5e7eb"; var textC=done?c:active?"#92400e":"#9ca3af";
+            var done=run.stageStatus[i],active=!done&&(i===0||run.stageStatus[i-1]),bg=done?c:active?"#f59e0b":"#e5e7eb",textC=done?c:active?"#92400e":"#9ca3af";
             return (
               <div key={i} style={{ flex:1,display:"flex",flexDirection:"column",alignItems:"center",position:"relative" }}>
                 {i<run.stages.length-1&&<div style={{ position:"absolute",top:16,left:"50%",width:"100%",height:2,background:done?c+"55":"#e5e7eb",zIndex:0 }}></div>}
                 <div className={active?"thinking-dot":""} style={{ width:32,height:32,borderRadius:"50%",background:done?c+"18":active?"#fef3c7":"#f9fafb",border:"2px solid "+bg,display:"flex",alignItems:"center",justifyContent:"center",position:"relative",zIndex:1,marginBottom:8 }}>
-                  {done?<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-5" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                       :<div style={{ width:8,height:8,borderRadius:"50%",background:bg }}></div>}
+                  {done?<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-5" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>:<div style={{ width:8,height:8,borderRadius:"50%",background:bg }}></div>}
                 </div>
                 <div style={{ fontSize:11,fontWeight:500,color:textC,textAlign:"center",maxWidth:100 }}>{st}</div>
               </div>
@@ -713,9 +616,7 @@ function RunDetail({ run, agent:ag, onBack, t }) {
             var isAgent=m.from==="agent";
             return (
               <div key={i} style={{ display:"flex",flexDirection:isAgent?"row":"row-reverse",gap:10,alignItems:"flex-end" }}>
-                <div style={{ width:30,height:30,borderRadius:"50%",background:isAgent?c:"#6b7280",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>
-                  <span style={{ fontSize:11,fontWeight:500,color:"#fff" }}>{isAgent?ag.initials:"U"}</span>
-                </div>
+                <div style={{ width:30,height:30,borderRadius:"50%",background:isAgent?c:"#6b7280",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}><span style={{ fontSize:11,fontWeight:500,color:"#fff" }}>{isAgent?ag.initials:"U"}</span></div>
                 <div style={{ maxWidth:"68%" }}>
                   <div style={{ fontSize:10,color:"#9ca3af",marginBottom:3,textAlign:isAgent?"left":"right" }}>{m.name} · {m.time}</div>
                   <div style={{ background:isAgent?ag.light:"#f3f4f6",borderRadius:isAgent?"0 10px 10px 10px":"10px 0 10px 10px",padding:"10px 14px",fontSize:13,color:"#111827",lineHeight:1.5 }}>{m.msg}</div>
@@ -725,8 +626,7 @@ function RunDetail({ run, agent:ag, onBack, t }) {
           })}
         </div>
         <div style={{ padding:"12px 16px",borderTop:"0.5px solid #e5e7eb",display:"flex",gap:8 }}>
-          <input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>{if(e.key==="Enter")sendMsg();}}
-            placeholder={t.messagePlaceholder(ag.name)} style={{ flex:1,fontSize:13,padding:"8px 12px",borderRadius:8,border:"0.5px solid #d1d5db",background:"#f9fafb",color:"#111827",outline:"none" }}/>
+          <input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>{if(e.key==="Enter")sendMsg();}} placeholder={t.messagePlaceholder(ag.name)} style={{ flex:1,fontSize:13,padding:"8px 12px",borderRadius:8,border:"0.5px solid #d1d5db",background:"#f9fafb",color:"#111827",outline:"none" }}/>
           <button onClick={sendMsg} style={{ padding:"8px 16px",borderRadius:8,background:c,border:"none",cursor:"pointer",color:"#fff",fontSize:12,fontWeight:500 }}>{t.send}</button>
         </div>
       </div>
@@ -734,40 +634,28 @@ function RunDetail({ run, agent:ag, onBack, t }) {
   );
 }
 
-// ─── AGENT MONITOR ────────────────────────────────────────────────────────────
 function AgentMonitor({ agent:ag, onBack, exceptionPages, setExceptionPages, t }) {
-  var c=ag.color;
-  var [selectedRun,setSelectedRun]=useState(null);
+  var c=ag.color,[selectedRun,setSelectedRun]=useState(null);
   var langKey=t===T.es?"es":"en";
   var runHistory=(T[langKey].runData[ag.name]||{}).runs||[];
   var allExceptions=T[langKey].exceptions[ag.name]||[];
-  var excPageSize=3, excPage=exceptionPages[ag.name]||0;
-  var excTotalPages=Math.ceil(allExceptions.length/excPageSize);
+  var excPageSize=3,excPage=exceptionPages[ag.name]||0,excTotalPages=Math.ceil(allExceptions.length/excPageSize);
   var exceptions=allExceptions.slice(excPage*excPageSize,(excPage+1)*excPageSize);
-  var stages=runHistory[0]?.stages||[];
-  var stageCounts=[4,3,2,3];
+  var stages=runHistory[0]?.stages||[],stageCounts=[4,3,2,3];
   var statusColor=s=>{
-    if(s==="Successful"||s==="Completed") return{bg:"#dcfce7",color:"#166534"};
-    if(s==="In progress") return{bg:"#dbeafe",color:"#1e40af"};
-    if(s==="In review") return{bg:"#fef3c7",color:"#92400e"};
+    if(s==="Successful"||s==="Completed")return{bg:"#dcfce7",color:"#166534"};
+    if(s==="In progress")return{bg:"#dbeafe",color:"#1e40af"};
+    if(s==="In review")return{bg:"#fef3c7",color:"#92400e"};
     return{bg:"#f3f4f6",color:"#374151"};
   };
-  if(selectedRun) return <RunDetail run={selectedRun} agent={ag} onBack={()=>setSelectedRun(null)} t={t}/>;
+  if(selectedRun)return <RunDetail run={selectedRun} agent={ag} onBack={()=>setSelectedRun(null)} t={t}/>;
   return (
     <div style={{ padding:"0 32px 32px",maxWidth:960,margin:"0 auto" }}>
       <div style={{ padding:"20px 0 16px" }}>
-        <button onClick={onBack} style={{ fontSize:12,padding:"6px 12px",borderRadius:6,border:"0.5px solid #e5e7eb",color:"#6b7280",cursor:"pointer",background:"#fff",display:"inline-flex",alignItems:"center",gap:5,marginBottom:14 }}>
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M8 10.5L4.5 7 8 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          {t.backToPlatform}
-        </button>
+        <button onClick={onBack} style={{ fontSize:12,padding:"6px 12px",borderRadius:6,border:"0.5px solid #e5e7eb",color:"#6b7280",cursor:"pointer",background:"#fff",display:"inline-flex",alignItems:"center",gap:5,marginBottom:14 }}><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M8 10.5L4.5 7 8 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>{t.backToPlatform}</button>
         <div style={{ display:"flex",alignItems:"center",gap:12 }}>
-          <div style={{ width:44,height:44,borderRadius:"50%",background:c,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>
-            <span style={{ fontSize:14,fontWeight:500,color:"#fff" }}>{ag.initials}</span>
-          </div>
-          <div>
-            <div style={{ fontSize:20,fontWeight:500,color:"#111827" }}>{ag.name}</div>
-            <div style={{ fontSize:12,color:c }}>{ag.role}</div>
-          </div>
+          <div style={{ width:44,height:44,borderRadius:"50%",background:c,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}><span style={{ fontSize:14,fontWeight:500,color:"#fff" }}>{ag.initials}</span></div>
+          <div><div style={{ fontSize:20,fontWeight:500,color:"#111827" }}>{ag.name}</div><div style={{ fontSize:12,color:c }}>{ag.role}</div></div>
           <LiveActiveBadge t={t}/>
           <span style={{ background:ag.light,color:c,borderRadius:6,padding:"3px 9px",fontSize:11,border:"0.5px solid "+ag.border }}>{ag.area}</span>
         </div>
@@ -801,20 +689,15 @@ function AgentMonitor({ agent:ag, onBack, exceptionPages, setExceptionPages, t }
           {exceptions.map((ex,i)=>(
             <div key={i} style={{ display:"flex",alignItems:"center",gap:10,padding:"10px 12px",background:"#f9fafb",borderRadius:8,marginBottom:8 }}>
               <div style={{ width:8,height:8,borderRadius:"50%",background:ex.severity==="high"?"#ef4444":"#f59e0b",flexShrink:0 }}></div>
-              <div style={{ flex:1 }}>
-                <div style={{ fontSize:12,fontWeight:500,color:"#111827" }}>{ex.type}</div>
-                <div style={{ fontSize:11,color:"#9ca3af" }}>{ex.ref}</div>
-              </div>
+              <div style={{ flex:1 }}><div style={{ fontSize:12,fontWeight:500,color:"#111827" }}>{ex.type}</div><div style={{ fontSize:11,color:"#9ca3af" }}>{ex.ref}</div></div>
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </div>
           ))}
           <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",marginTop:8 }}>
             <span style={{ fontSize:11,color:"#9ca3af" }}>{t.pageOf(excPage+1,excTotalPages)}</span>
             <div style={{ display:"flex",gap:4 }}>
-              <button onClick={()=>setExceptionPages(p=>({...p,[ag.name]:Math.max(0,excPage-1)}))} disabled={excPage===0}
-                style={{ fontSize:11,padding:"3px 10px",borderRadius:5,border:"0.5px solid #e5e7eb",background:excPage===0?"#f9fafb":"#fff",color:excPage===0?"#d1d5db":c,cursor:excPage===0?"default":"pointer" }}>{t.prev}</button>
-              <button onClick={()=>setExceptionPages(p=>({...p,[ag.name]:Math.min(excTotalPages-1,excPage+1)}))} disabled={excPage===excTotalPages-1}
-                style={{ fontSize:11,padding:"3px 10px",borderRadius:5,border:"0.5px solid #e5e7eb",background:excPage===excTotalPages-1?"#f9fafb":"#fff",color:excPage===excTotalPages-1?"#d1d5db":c,cursor:excPage===excTotalPages-1?"default":"pointer" }}>{t.next}</button>
+              <button onClick={()=>setExceptionPages(p=>({...p,[ag.name]:Math.max(0,excPage-1)}))} disabled={excPage===0} style={{ fontSize:11,padding:"3px 10px",borderRadius:5,border:"0.5px solid #e5e7eb",background:excPage===0?"#f9fafb":"#fff",color:excPage===0?"#d1d5db":c,cursor:excPage===0?"default":"pointer" }}>{t.prev}</button>
+              <button onClick={()=>setExceptionPages(p=>({...p,[ag.name]:Math.min(excTotalPages-1,excPage+1)}))} disabled={excPage===excTotalPages-1} style={{ fontSize:11,padding:"3px 10px",borderRadius:5,border:"0.5px solid #e5e7eb",background:excPage===excTotalPages-1?"#f9fafb":"#fff",color:excPage===excTotalPages-1?"#d1d5db":c,cursor:excPage===excTotalPages-1?"default":"pointer" }}>{t.next}</button>
             </div>
           </div>
         </div>
@@ -823,29 +706,17 @@ function AgentMonitor({ agent:ag, onBack, exceptionPages, setExceptionPages, t }
         <div style={{ fontSize:13,fontWeight:500,color:"#111827",marginBottom:4 }}>{t.runHistory}</div>
         <div style={{ fontSize:11,color:"#9ca3af",marginBottom:16 }}>{t.runHistorySub}</div>
         <table style={{ width:"100%",borderCollapse:"collapse",fontSize:12 }}>
-          <thead>
-            <tr style={{ borderBottom:"0.5px solid #e5e7eb" }}>
-              {[t.executionStart,t.status,t.duration,t.description,t.reference].map(h=>(
-                <th key={h} style={{ padding:"8px 12px",textAlign:"left",fontSize:11,fontWeight:500,color:"#9ca3af",letterSpacing:"0.05em" }}>{h}</th>
-              ))}
-            </tr>
-          </thead>
+          <thead><tr style={{ borderBottom:"0.5px solid #e5e7eb" }}>{[t.executionStart,t.status,t.duration,t.description,t.reference].map(h=><th key={h} style={{ padding:"8px 12px",textAlign:"left",fontSize:11,fontWeight:500,color:"#9ca3af",letterSpacing:"0.05em" }}>{h}</th>)}</tr></thead>
           <tbody>
             {runHistory.map((r,i)=>{
-              var sc=statusColor(r.status); var displayStatus=t.statusLabels[r.status]||r.status;
+              var sc=statusColor(r.status),displayStatus=t.statusLabels[r.status]||r.status;
               return (
-                <tr key={i} onClick={()=>setSelectedRun(r)} style={{ borderBottom:"0.5px solid #e5e7eb",cursor:"pointer" }}
-                  onMouseEnter={e=>e.currentTarget.style.background="#f9fafb"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>
+                <tr key={i} onClick={()=>setSelectedRun(r)} style={{ borderBottom:"0.5px solid #e5e7eb",cursor:"pointer" }} onMouseEnter={e=>e.currentTarget.style.background="#f9fafb"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>
                   <td style={{ padding:"12px 12px",color:"#6b7280",whiteSpace:"nowrap" }}>{r.date}</td>
                   <td style={{ padding:"12px 12px" }}><span style={{ background:sc.bg,color:sc.color,borderRadius:10,padding:"3px 10px",fontSize:11,fontWeight:500 }}>{displayStatus}</span></td>
                   <td style={{ padding:"12px 12px",color:"#6b7280" }}>{r.duration}</td>
                   <td style={{ padding:"12px 12px",color:"#111827" }}>{r.desc}</td>
-                  <td style={{ padding:"12px 12px" }}>
-                    <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between" }}>
-                      <span style={{ color:c,fontWeight:500 }}>{r.ref}</span>
-                      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M4.5 2.5L8 6.5 4.5 10.5" stroke={c} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </div>
-                  </td>
+                  <td style={{ padding:"12px 12px" }}><div style={{ display:"flex",alignItems:"center",justifyContent:"space-between" }}><span style={{ color:c,fontWeight:500 }}>{r.ref}</span><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M4.5 2.5L8 6.5 4.5 10.5" stroke={c} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg></div></td>
                 </tr>
               );
             })}
@@ -856,18 +727,14 @@ function AgentMonitor({ agent:ag, onBack, exceptionPages, setExceptionPages, t }
   );
 }
 
-// ─── CHART RENDERER ───────────────────────────────────────────────────────────
 function ChartRenderer({ lang }) {
   useEffect(()=>{
     var s=document.createElement("script");
     s.src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js";
     s.onload=()=>{
-      var C=window.Chart, g="rgba(150,150,150,0.12)", tc="#9ca3af";
+      var C=window.Chart,g="rgba(150,150,150,0.12)",tc="#9ca3af";
       var tl=T[lang].chartLabels;
-      ["cycleChart","savingsChart","roiChart"].forEach(id=>{
-        var el=document.getElementById(id);
-        if(el&&el._ci){el._ci.destroy();el._ci=null;el._done=false;}
-      });
+      ["cycleChart","savingsChart","roiChart"].forEach(id=>{var el=document.getElementById(id);if(el&&el._ci){el._ci.destroy();el._ci=null;el._done=false;}});
       var e1=document.getElementById("cycleChart");
       if(e1&&!e1._done){e1._done=true;e1._ci=new C(e1,{type:"bar",data:{labels:tl.cycleItems,datasets:[{label:T[lang].manual,data:[3.2,2.8,6.4,4.1],backgroundColor:"#d1d5db",borderRadius:3},{label:T[lang].automated,data:[0.17,0.48,2.1,0.9],backgroundColor:"#7c3aed",borderRadius:3}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:g},ticks:{color:tc,font:{size:11},callback:v=>v+"d"}},y:{grid:{display:false},ticks:{color:tc,font:{size:11}}}}}})}
       var e2=document.getElementById("savingsChart");
@@ -881,7 +748,6 @@ function ChartRenderer({ lang }) {
   return null;
 }
 
-// ─── MAIN APP ─────────────────────────────────────────────────────────────────
 export default function App() {
   var [mainTab,setMainTab]=useState("catalog");
   var [previewView,setPreviewView]=useState("overview");
@@ -891,7 +757,6 @@ export default function App() {
   var [activeAgent,setActiveAgent]=useState(null);
   var [exceptionPages,setExceptionPages]=useState({});
   var [lang,setLang]=useState("en");
-  // Demo state
   var [demoAgent,setDemoAgent]=useState("Daniel");
   var [demoFile,setDemoFile]=useState(null);
   var [demoEmail,setDemoEmail]=useState("");
@@ -900,8 +765,7 @@ export default function App() {
   var [demoStage,setDemoStage]=useState(0);
   var [demoLog,setDemoLog]=useState([]);
 
-  var t=T[lang];
-  var areas=getAreas(t);
+  var t=T[lang],areas=getAreas(t);
 
   function goHome(){setView("home");setActiveArea(null);setActiveAgent(null);}
   function goArea(a){setActiveArea(a);setActiveAgent(null);setView("area");}
@@ -921,41 +785,50 @@ export default function App() {
         @keyframes pulse-ring{0%{box-shadow:0 0 0 0 rgba(245,158,11,0.5);}70%{box-shadow:0 0 0 7px rgba(245,158,11,0);}100%{box-shadow:0 0 0 0 rgba(245,158,11,0);}}
         @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
         .thinking-dot{animation:pulse-ring 1.4s ease-out infinite;}
+        .nav-tab{transition:all 0.15s;border-bottom:2px solid transparent;}
+        .nav-tab:hover{color:#7c3aed !important;}
+        .nav-tab.active{border-bottom-color:#7c3aed !important;color:#7c3aed !important;}
+        .area-pill{transition:all 0.15s;}
+        .area-pill:hover{background:#f5f3ff !important;border-color:#c4b5fd !important;color:#7c3aed !important;}
       `}</style>
 
       {/* NAV */}
-      <div style={{ background:"#fff",borderBottom:"0.5px solid #e5e7eb",padding:"0 24px",display:"flex",alignItems:"center",height:52 }}>
-        <div style={{ display:"flex",alignItems:"center",gap:8,padding:"0 16px 0 0",borderRight:"0.5px solid #e5e7eb",marginRight:16,flexShrink:0 }}>
-          <div style={{ width:26,height:26,background:"linear-gradient(135deg,#7c3aed,#4338ca)",borderRadius:6,display:"flex",alignItems:"center",justifyContent:"center" }}>
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1" y="1" width="4" height="4" rx="1" fill="white"/><rect x="8" y="1" width="4" height="4" rx="1" fill="white"/><rect x="1" y="8" width="4" height="4" rx="1" fill="white"/><rect x="8" y="8" width="4" height="4" rx="1" fill="white"/></svg>
-          </div>
-          <span style={{ fontSize:13,fontWeight:500,color:"#111827" }}>{t.appName}</span>
+      <div style={{ background:"#fff",borderBottom:"0.5px solid #e5e7eb",padding:"0 24px",display:"flex",alignItems:"center",height:54,boxShadow:"0 1px 3px rgba(0,0,0,0.04)" }}>
+        {/* Logo */}
+        <div style={{ display:"flex",alignItems:"center",padding:"0 20px 0 0",borderRight:"0.5px solid #f0e8ff",marginRight:20,flexShrink:0,cursor:"pointer" }} onClick={()=>{goHome();setMainTab("catalog");}}>
+          <BeeckerLogo height={30}/>
         </div>
+
+        {/* Nav tabs */}
         <div style={{ display:"flex",gap:0,height:"100%" }}>
           {[["catalog",t.catalogTab],["preview",t.dashboardTab],["demo","Demo"]].map(([key,label])=>{
             var active=mainTab===key;
-            return <button key={key} onClick={()=>{setMainTab(key);if(key==="catalog")goHome();}} style={{ height:"100%",padding:"0 18px",background:"none",border:"none",borderBottom:active?"2px solid "+purple:"2px solid transparent",cursor:"pointer",fontSize:13,fontWeight:active?500:400,color:active?purple:"#6b7280",transition:"all 0.15s" }}>{label}</button>;
+            return <button key={key} onClick={()=>{setMainTab(key);if(key==="catalog")goHome();}} className={`nav-tab${active?" active":""}`} style={{ height:"100%",padding:"0 18px",background:"none",border:"none",borderBottom:active?"2px solid "+purple:"2px solid transparent",cursor:"pointer",fontSize:13,fontWeight:active?500:400,color:active?purple:"#6b7280" }}>{label}</button>;
           })}
         </div>
+
+        {/* Area pills (catalog only) */}
         {mainTab==="catalog"&&(
           <div style={{ marginLeft:"auto",display:"flex",gap:8,alignItems:"center" }}>
             {activeArea&&(
-              <span style={{ fontSize:12,color:"#9ca3af",marginRight:4 }}>
+              <span style={{ fontSize:12,color:"#9ca3af",marginRight:4,display:"flex",alignItems:"center",gap:4 }}>
                 <button onClick={goHome} style={{ background:"none",border:"none",cursor:"pointer",fontSize:12,color:"#6b7280",padding:0 }}>{t.home}</button>
-                {" › "}
+                <span style={{ color:"#d1d5db" }}>›</span>
                 <button onClick={()=>goArea(activeArea)} style={{ background:"none",border:"none",cursor:"pointer",fontSize:12,color:activeArea.color,padding:0 }}>{activeArea.label}</button>
-                {view==="agent"&&activeAgent?" › "+activeAgent.name:""}
+                {view==="agent"&&activeAgent&&<><span style={{ color:"#d1d5db" }}>›</span><span style={{ fontSize:12,color:"#374151" }}>{activeAgent.name}</span></>}
               </span>
             )}
             {areas.map(a=>(
-              <button key={a.id} onClick={()=>goArea(a)} style={{ background:activeArea&&activeArea.id===a.id?a.color+"18":"none",border:"0.5px solid",borderColor:activeArea&&activeArea.id===a.id?a.border:"#e5e7eb",borderRadius:6,cursor:"pointer",padding:"4px 12px",fontSize:12,fontWeight:500,color:activeArea&&activeArea.id===a.id?a.color:"#6b7280" }}>{a.label}</button>
+              <button key={a.id} onClick={()=>goArea(a)} className="area-pill" style={{ background:activeArea&&activeArea.id===a.id?a.color+"18":"none",border:"0.5px solid",borderColor:activeArea&&activeArea.id===a.id?a.border:"#e5e7eb",borderRadius:20,cursor:"pointer",padding:"4px 14px",fontSize:11,fontWeight:500,color:activeArea&&activeArea.id===a.id?a.color:"#6b7280" }}>{a.label}</button>
             ))}
           </div>
         )}
         {mainTab!=="catalog"&&<div style={{ flex:1 }}/>}
-        <div style={{ marginLeft:12,flexShrink:0,display:"flex",gap:4 }}>
+
+        {/* Lang toggle */}
+        <div style={{ marginLeft:16,flexShrink:0,display:"flex",gap:3,background:"#f3f4f6",borderRadius:20,padding:"3px" }}>
           {["en","es"].map(l=>(
-            <button key={l} onClick={()=>setLang(l)} style={{ fontSize:11,fontWeight:600,padding:"5px 10px",borderRadius:6,border:"0.5px solid #e5e7eb",background:lang===l?"#7c3aed":"#fff",color:lang===l?"#fff":"#374151",cursor:"pointer",transition:"all 0.2s" }}>{l.toUpperCase()}</button>
+            <button key={l} onClick={()=>setLang(l)} style={{ fontSize:11,fontWeight:600,padding:"4px 12px",borderRadius:16,border:"none",background:lang===l?"#fff":"transparent",color:lang===l?"#111827":"#9ca3af",cursor:"pointer",boxShadow:lang===l?"0 1px 3px rgba(0,0,0,0.1)":"none",transition:"all 0.15s" }}>{l.toUpperCase()}</button>
           ))}
         </div>
       </div>
@@ -964,26 +837,30 @@ export default function App() {
       {mainTab==="catalog"&&(
         <div>
           {view==="home"&&(
-            <div style={{ padding:"40px 32px",maxWidth:960,margin:"0 auto" }}>
-              <div style={{ marginBottom:28 }}>
-                <div style={{ fontSize:11,fontWeight:500,color:"#9ca3af",letterSpacing:"0.08em",marginBottom:6 }}>BEECKER AUTONOMOUS AGENTS</div>
-                <h1 style={{ margin:"0 0 8px",fontSize:26,fontWeight:500,color:"#111827" }}>{t.catalogTitle}</h1>
-                <p style={{ margin:0,fontSize:14,color:"#6b7280",maxWidth:520 }}>{t.catalogSub}</p>
+            <div style={{ padding:"44px 32px",maxWidth:960,margin:"0 auto" }}>
+              <div style={{ marginBottom:32 }}>
+                <div style={{ display:"flex",alignItems:"center",gap:10,marginBottom:10 }}>
+                  <div style={{ width:4,height:20,borderRadius:2,background:"linear-gradient(to bottom,#7c3aed,#4338ca)" }}></div>
+                  <span style={{ fontSize:11,fontWeight:600,color:"#9ca3af",letterSpacing:"0.1em" }}>BEECKER AUTONOMOUS AGENTS</span>
+                </div>
+                <h1 style={{ margin:"0 0 8px",fontSize:28,fontWeight:600,color:"#111827",letterSpacing:"-0.3px" }}>{t.catalogTitle}</h1>
+                <p style={{ margin:0,fontSize:14,color:"#6b7280",maxWidth:520,lineHeight:1.6 }}>{t.catalogSub}</p>
               </div>
               <div style={{ display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:16 }}>
                 {areas.map(a=>(
-                  <button key={a.id} onClick={()=>goArea(a)} style={{ background:"#fff",border:"0.5px solid #e5e7eb",borderRadius:12,padding:"24px 20px",textAlign:"left",cursor:"pointer" }}
-                    onMouseEnter={e=>e.currentTarget.style.borderColor=a.border} onMouseLeave={e=>e.currentTarget.style.borderColor="#e5e7eb"}>
+                  <button key={a.id} onClick={()=>goArea(a)} style={{ background:"#fff",border:"0.5px solid #e5e7eb",borderRadius:14,padding:"24px 22px",textAlign:"left",cursor:"pointer",transition:"all 0.2s",boxShadow:"0 1px 3px rgba(0,0,0,0.04)" }}
+                    onMouseEnter={e=>{e.currentTarget.style.borderColor=a.border;e.currentTarget.style.boxShadow=`0 4px 16px ${a.color}18`;e.currentTarget.style.transform="translateY(-1px)";}}
+                    onMouseLeave={e=>{e.currentTarget.style.borderColor="#e5e7eb";e.currentTarget.style.boxShadow="0 1px 3px rgba(0,0,0,0.04)";e.currentTarget.style.transform="translateY(0)";}}>
                     <div style={{ display:"flex",alignItems:"flex-start",justifyContent:"space-between",marginBottom:16 }}>
-                      <div style={{ color:a.color,background:a.light,borderRadius:10,width:46,height:46,display:"flex",alignItems:"center",justifyContent:"center" }}>{areaIcons[a.id]}</div>
-                      <span style={{ background:a.light,color:a.color,borderRadius:6,padding:"3px 10px",fontSize:11,fontWeight:500 }}>{a.agents.length} {t.agents}</span>
+                      <div style={{ color:a.color,background:a.light,borderRadius:12,width:48,height:48,display:"flex",alignItems:"center",justifyContent:"center",border:"0.5px solid "+a.border }}>{areaIcons[a.id]}</div>
+                      <span style={{ background:a.light,color:a.color,borderRadius:20,padding:"3px 12px",fontSize:11,fontWeight:600,border:"0.5px solid "+a.border }}>{a.agents.length} {t.agents}</span>
                     </div>
-                    <div style={{ fontSize:17,fontWeight:500,color:"#111827",marginBottom:3 }}>{a.label}</div>
-                    <div style={{ fontSize:12,color:a.color,marginBottom:8 }}>{a.full}</div>
-                    <p style={{ margin:"0 0 14px",fontSize:13,color:"#6b7280",lineHeight:1.55 }}>{a.desc}</p>
+                    <div style={{ fontSize:18,fontWeight:600,color:"#111827",marginBottom:2,letterSpacing:"-0.2px" }}>{a.label}</div>
+                    <div style={{ fontSize:12,color:a.color,marginBottom:10,fontWeight:500 }}>{a.full}</div>
+                    <p style={{ margin:"0 0 16px",fontSize:13,color:"#6b7280",lineHeight:1.6 }}>{a.desc}</p>
                     <div style={{ display:"flex",flexWrap:"wrap",gap:4 }}>
-                      {a.agents.slice(0,4).map(ag=><span key={ag.name} style={{ background:"#f9fafb",border:"0.5px solid #e5e7eb",borderRadius:5,padding:"2px 8px",fontSize:11,color:"#6b7280" }}>{ag.name}</span>)}
-                      {a.agents.length>4&&<span style={{ fontSize:11,color:"#9ca3af",padding:"2px 4px" }}>{t.moreAgents(a.agents.length-4)}</span>}
+                      {a.agents.slice(0,4).map(ag=><span key={ag.name} style={{ background:"#f9fafb",border:"0.5px solid #e5e7eb",borderRadius:6,padding:"2px 10px",fontSize:11,color:"#6b7280" }}>{ag.name}</span>)}
+                      {a.agents.length>4&&<span style={{ fontSize:11,color:"#9ca3af",padding:"2px 6px" }}>{t.moreAgents(a.agents.length-4)}</span>}
                     </div>
                   </button>
                 ))}
@@ -991,26 +868,26 @@ export default function App() {
             </div>
           )}
           {view==="area"&&activeArea&&(
-            <div style={{ padding:"28px 32px",maxWidth:980,margin:"0 auto" }}>
-              <div style={{ display:"flex",alignItems:"center",gap:12,marginBottom:8 }}>
-                <div style={{ color:activeArea.color,background:activeArea.light,borderRadius:10,width:42,height:42,display:"flex",alignItems:"center",justifyContent:"center" }}>{areaIcons[activeArea.id]}</div>
+            <div style={{ padding:"32px 32px",maxWidth:980,margin:"0 auto" }}>
+              <div style={{ display:"flex",alignItems:"center",gap:14,marginBottom:10 }}>
+                <div style={{ color:activeArea.color,background:activeArea.light,borderRadius:12,width:46,height:46,display:"flex",alignItems:"center",justifyContent:"center",border:"0.5px solid "+activeArea.border }}>{areaIcons[activeArea.id]}</div>
                 <div>
-                  <div style={{ fontSize:10,color:"#9ca3af",fontWeight:500,letterSpacing:"0.07em" }}>{activeArea.label}</div>
-                  <h2 style={{ margin:0,fontSize:19,fontWeight:500,color:"#111827" }}>{activeArea.full}</h2>
+                  <div style={{ fontSize:10,color:"#9ca3af",fontWeight:600,letterSpacing:"0.08em",marginBottom:2 }}>{activeArea.label}</div>
+                  <h2 style={{ margin:0,fontSize:20,fontWeight:600,color:"#111827",letterSpacing:"-0.2px" }}>{activeArea.full}</h2>
                 </div>
               </div>
-              <p style={{ margin:"0 0 22px",fontSize:13,color:"#6b7280" }}>{activeArea.desc} {t.clickForCapability}</p>
+              <p style={{ margin:"0 0 24px",fontSize:13,color:"#6b7280",lineHeight:1.6 }}>{activeArea.desc} {t.clickForCapability}</p>
               <div style={{ display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(175px,1fr))",gap:12 }}>
                 {activeArea.agents.map(ag=>(
-                  <button key={ag.name} onClick={()=>goAgent(ag)} style={{ background:"#fff",border:"0.5px solid #e5e7eb",borderRadius:12,padding:"16px 14px",textAlign:"left",cursor:"pointer" }}
-                    onMouseEnter={e=>{e.currentTarget.style.borderColor=activeArea.border;e.currentTarget.style.background=activeArea.light;}}
-                    onMouseLeave={e=>{e.currentTarget.style.borderColor="#e5e7eb";e.currentTarget.style.background="#fff";}}>
-                    <div style={{ width:34,height:34,background:activeArea.color+"18",borderRadius:7,display:"flex",alignItems:"center",justifyContent:"center",marginBottom:10 }}>
-                      <span style={{ fontSize:11,fontWeight:500,color:activeArea.color }}>{ag.icon}</span>
+                  <button key={ag.name} onClick={()=>goAgent(ag)} style={{ background:"#fff",border:"0.5px solid #e5e7eb",borderRadius:12,padding:"18px 16px",textAlign:"left",cursor:"pointer",transition:"all 0.15s",boxShadow:"0 1px 2px rgba(0,0,0,0.04)" }}
+                    onMouseEnter={e=>{e.currentTarget.style.borderColor=activeArea.border;e.currentTarget.style.background=activeArea.light;e.currentTarget.style.transform="translateY(-1px)";e.currentTarget.style.boxShadow=`0 4px 12px ${activeArea.color}14`;}}
+                    onMouseLeave={e=>{e.currentTarget.style.borderColor="#e5e7eb";e.currentTarget.style.background="#fff";e.currentTarget.style.transform="translateY(0)";e.currentTarget.style.boxShadow="0 1px 2px rgba(0,0,0,0.04)";}}>
+                    <div style={{ width:36,height:36,background:activeArea.color+"18",borderRadius:9,display:"flex",alignItems:"center",justifyContent:"center",marginBottom:12,border:"0.5px solid "+activeArea.border }}>
+                      <span style={{ fontSize:10,fontWeight:700,color:activeArea.color }}>{ag.icon}</span>
                     </div>
-                    <div style={{ fontSize:14,fontWeight:500,color:"#111827",marginBottom:2 }}>{ag.name}</div>
-                    <div style={{ fontSize:11,color:activeArea.color,marginBottom:6 }}>{ag.module}</div>
-                    <div style={{ fontSize:10,color:"#9ca3af",lineHeight:1.4 }}>{t.trigger}: {ag.trigger}</div>
+                    <div style={{ fontSize:14,fontWeight:600,color:"#111827",marginBottom:3 }}>{ag.name}</div>
+                    <div style={{ fontSize:11,color:activeArea.color,marginBottom:8,fontWeight:500 }}>{ag.module}</div>
+                    <div style={{ fontSize:10,color:"#9ca3af",lineHeight:1.5 }}>{t.trigger}: {ag.trigger}</div>
                   </button>
                 ))}
               </div>
@@ -1026,11 +903,14 @@ export default function App() {
 
       {/* DASHBOARD */}
       {mainTab==="preview"&&previewView==="overview"&&(
-        <div style={{ padding:"40px 32px",maxWidth:960,margin:"0 auto" }}>
-          <div style={{ marginBottom:28 }}>
-            <div style={{ fontSize:11,fontWeight:500,color:"#9ca3af",letterSpacing:"0.08em",marginBottom:6 }}>BEECKER AUTONOMOUS AGENTS</div>
-            <h1 style={{ margin:"0 0 8px",fontSize:26,fontWeight:500,color:"#111827" }}>{t.dashboardTitle}</h1>
-            <p style={{ margin:0,fontSize:14,color:"#6b7280",maxWidth:520 }}>{t.dashboardSub}</p>
+        <div style={{ padding:"44px 32px",maxWidth:960,margin:"0 auto" }}>
+          <div style={{ marginBottom:32 }}>
+            <div style={{ display:"flex",alignItems:"center",gap:10,marginBottom:10 }}>
+              <div style={{ width:4,height:20,borderRadius:2,background:"linear-gradient(to bottom,#7c3aed,#4338ca)" }}></div>
+              <span style={{ fontSize:11,fontWeight:600,color:"#9ca3af",letterSpacing:"0.1em" }}>BEECKER AUTONOMOUS AGENTS</span>
+            </div>
+            <h1 style={{ margin:"0 0 8px",fontSize:28,fontWeight:600,color:"#111827",letterSpacing:"-0.3px" }}>{t.dashboardTitle}</h1>
+            <p style={{ margin:0,fontSize:14,color:"#6b7280",maxWidth:520,lineHeight:1.6 }}>{t.dashboardSub}</p>
           </div>
           <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:16,marginBottom:28 }}>
             {[
@@ -1038,60 +918,64 @@ export default function App() {
               {id:"savingsChart",title:t.savingsTitle,sub:t.savingsSub,legend:[{color:"#7c3aed",label:"H2R"},{color:"#6d28d9",label:"P2P"},{color:"#4338ca",label:"O2C"}]},
               {id:"roiChart",title:t.roiTitle,sub:t.roiSub,legend:[{color:"#4338ca",label:"ROI (x)"}]},
             ].map(ch=>(
-              <div key={ch.id} style={{ background:"#fff",border:"0.5px solid #e5e7eb",borderRadius:10,padding:"16px" }}>
-                <div style={{ fontSize:12,fontWeight:500,color:"#111827",marginBottom:2 }}>{ch.title}</div>
-                <div style={{ fontSize:11,color:"#9ca3af",marginBottom:10 }}>{ch.sub}</div>
-                <div style={{ display:"flex",gap:12,marginBottom:10 }}>
+              <div key={ch.id} style={{ background:"#fff",border:"0.5px solid #e5e7eb",borderRadius:12,padding:"18px",boxShadow:"0 1px 3px rgba(0,0,0,0.04)" }}>
+                <div style={{ fontSize:12,fontWeight:600,color:"#111827",marginBottom:2 }}>{ch.title}</div>
+                <div style={{ fontSize:11,color:"#9ca3af",marginBottom:12 }}>{ch.sub}</div>
+                <div style={{ display:"flex",gap:12,marginBottom:12 }}>
                   {ch.legend.map(l=><span key={l.label} style={{ display:"flex",alignItems:"center",gap:4,fontSize:11,color:"#6b7280" }}><span style={{ width:10,height:10,borderRadius:2,background:l.color,display:"inline-block" }}></span>{l.label}</span>)}
                 </div>
                 <div style={{ position:"relative",width:"100%",height:180 }}><canvas id={ch.id}></canvas></div>
               </div>
             ))}
           </div>
-          <div style={{ display:"grid",gridTemplateColumns:"repeat(4,minmax(0,1fr))",gap:16,marginBottom:36 }}>
+          <div style={{ display:"grid",gridTemplateColumns:"repeat(4,minmax(0,1fr))",gap:16,marginBottom:40 }}>
             {t.kpis.map((k,i)=>{
-              var colors=["#7c3aed","#6d28d9","#4338ca","#4338ca"];
+              var colors=["#7c3aed","#6d28d9","#4338ca","#4338ca"],grads=["linear-gradient(135deg,#7c3aed22,#7c3aed08)","linear-gradient(135deg,#6d28d922,#6d28d908)","linear-gradient(135deg,#4338ca22,#4338ca08)","linear-gradient(135deg,#4338ca22,#4338ca08)"];
               return (
-                <div key={i} style={{ background:"#fff",border:"0.5px solid #e5e7eb",borderRadius:10,padding:"16px 16px 14px",borderTop:"3px solid "+colors[i] }}>
-                  <div style={{ fontSize:24,fontWeight:500,color:colors[i],marginBottom:4 }}>{k.value}</div>
-                  <div style={{ fontSize:12,color:"#111827",lineHeight:1.45,marginBottom:5 }}>{k.label}</div>
+                <div key={i} style={{ background:"#fff",border:"0.5px solid #e5e7eb",borderRadius:12,padding:"20px 18px",borderTop:"3px solid "+colors[i],boxShadow:"0 1px 3px rgba(0,0,0,0.04)" }}>
+                  <div style={{ fontSize:26,fontWeight:700,color:colors[i],marginBottom:6,letterSpacing:"-0.5px" }}>{k.value}</div>
+                  <div style={{ fontSize:12,color:"#374151",lineHeight:1.5,marginBottom:6,fontWeight:500 }}>{k.label}</div>
                   <div style={{ fontSize:11,color:"#9ca3af" }}>{k.sub}</div>
                 </div>
               );
             })}
           </div>
-          <div style={{ marginBottom:14 }}>
-            <div style={{ fontSize:11,fontWeight:500,color:"#9ca3af",letterSpacing:"0.08em",marginBottom:4 }}>{t.sampleAgentsLabel}</div>
-            <p style={{ margin:"0 0 16px",fontSize:13,color:"#6b7280" }}>{t.sampleAgentsSub}</p>
+          <div style={{ marginBottom:16 }}>
+            <div style={{ display:"flex",alignItems:"center",gap:10,marginBottom:6 }}>
+              <div style={{ width:4,height:16,borderRadius:2,background:"linear-gradient(to bottom,#7c3aed,#4338ca)" }}></div>
+              <span style={{ fontSize:11,fontWeight:600,color:"#9ca3af",letterSpacing:"0.1em" }}>{t.sampleAgentsLabel}</span>
+            </div>
+            <p style={{ margin:"0 0 18px",fontSize:13,color:"#6b7280" }}>{t.sampleAgentsSub}</p>
           </div>
           <div style={{ display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:16 }}>
             {sampleAgents.map(ag=>(
-              <button key={ag.name} onClick={()=>{setSelectedAgent(ag);setPreviewView("agent");}} style={{ background:"#fff",border:"0.5px solid #e5e7eb",borderRadius:12,padding:0,textAlign:"left",cursor:"pointer",overflow:"hidden",display:"flex",flexDirection:"column" }}
-                onMouseEnter={e=>e.currentTarget.style.borderColor=ag.border} onMouseLeave={e=>e.currentTarget.style.borderColor="#e5e7eb"}>
+              <button key={ag.name} onClick={()=>{setSelectedAgent(ag);setPreviewView("agent");}} style={{ background:"#fff",border:"0.5px solid #e5e7eb",borderRadius:14,padding:0,textAlign:"left",cursor:"pointer",overflow:"hidden",display:"flex",flexDirection:"column",transition:"all 0.2s",boxShadow:"0 1px 3px rgba(0,0,0,0.04)" }}
+                onMouseEnter={e=>{e.currentTarget.style.borderColor=ag.border;e.currentTarget.style.boxShadow=`0 4px 16px ${ag.color}18`;e.currentTarget.style.transform="translateY(-1px)";}}
+                onMouseLeave={e=>{e.currentTarget.style.borderColor="#e5e7eb";e.currentTarget.style.boxShadow="0 1px 3px rgba(0,0,0,0.04)";e.currentTarget.style.transform="translateY(0)";}}>
                 <div style={{ background:ag.light,padding:"16px 18px",display:"flex",alignItems:"center",gap:12,borderBottom:"0.5px solid #e5e7eb",width:"100%",boxSizing:"border-box" }}>
-                  <div style={{ width:44,height:44,borderRadius:"50%",background:ag.color,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>
-                    <span style={{ fontSize:14,fontWeight:500,color:"#fff" }}>{ag.initials}</span>
+                  <div style={{ width:44,height:44,borderRadius:"50%",background:ag.color,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,boxShadow:`0 2px 8px ${ag.color}40` }}>
+                    <span style={{ fontSize:14,fontWeight:600,color:"#fff" }}>{ag.initials}</span>
                   </div>
                   <div style={{ flex:1,minWidth:0 }}>
-                    <div style={{ fontSize:15,fontWeight:500,color:"#111827" }}>{ag.name}</div>
-                    <div style={{ fontSize:11,color:ag.color }}>{ag.role}</div>
+                    <div style={{ fontSize:15,fontWeight:600,color:"#111827" }}>{ag.name}</div>
+                    <div style={{ fontSize:11,color:ag.color,fontWeight:500 }}>{ag.role}</div>
                   </div>
                   <div style={{ display:"flex",flexDirection:"column",alignItems:"flex-end",gap:4 }}>
                     <LiveActiveBadge t={t}/>
-                    <span style={{ background:ag.light,color:ag.color,borderRadius:6,padding:"2px 7px",fontSize:10,border:"0.5px solid "+ag.border }}>{ag.area}</span>
+                    <span style={{ background:ag.light,color:ag.color,borderRadius:6,padding:"2px 8px",fontSize:10,border:"0.5px solid "+ag.border,fontWeight:600 }}>{ag.area}</span>
                   </div>
                 </div>
                 <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:0,flex:1 }}>
                   {ag.stats.map((s,i)=>(
                     <div key={i} style={{ padding:"12px 16px",borderRight:i%2===0?"0.5px solid #e5e7eb":"none",borderBottom:i<2?"0.5px solid #e5e7eb":"none" }}>
                       <div style={{ fontSize:10,color:"#9ca3af",marginBottom:3 }}>{s.label}</div>
-                      <div style={{ fontSize:16,fontWeight:500,color:ag.color }}>{s.val}</div>
+                      <div style={{ fontSize:17,fontWeight:600,color:ag.color }}>{s.val}</div>
                     </div>
                   ))}
                 </div>
-                <div style={{ padding:"10px 18px",borderTop:"0.5px solid #e5e7eb",display:"flex",alignItems:"center",justifyContent:"space-between" }}>
+                <div style={{ padding:"10px 18px",borderTop:"0.5px solid #e5e7eb",display:"flex",alignItems:"center",justifyContent:"space-between",background:"#fafafa" }}>
                   <span style={{ fontSize:11,color:"#9ca3af" }}>{t.exceptionsPending(ag.exceptions)}</span>
-                  <span style={{ fontSize:11,color:ag.color,fontWeight:500 }}>{t.viewDashboard}</span>
+                  <span style={{ fontSize:11,color:ag.color,fontWeight:600 }}>{t.viewDashboard}</span>
                 </div>
               </button>
             ))}
