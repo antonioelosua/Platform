@@ -10,7 +10,6 @@ function ChartRenderer() {
       var C = window.Chart;
       var g = "rgba(150,150,150,0.12)";
       var t = "#9ca3af";
-
       var el1 = document.getElementById("cycleChart");
       if (el1 && !el1._done) {
         el1._done = true;
@@ -24,9 +23,7 @@ function ChartRenderer() {
             ]
           },
           options: {
-            indexAxis: "y",
-            responsive: true,
-            maintainAspectRatio: false,
+            indexAxis: "y", responsive: true, maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
               x: { grid: { color: g }, ticks: { color: t, font: { size: 11 }, callback: function(v) { return v + "d"; } } },
@@ -35,7 +32,6 @@ function ChartRenderer() {
           }
         });
       }
-
       var el2 = document.getElementById("savingsChart");
       if (el2 && !el2._done) {
         el2._done = true;
@@ -46,8 +42,7 @@ function ChartRenderer() {
             datasets: [{ data: [620, 1100, 680], backgroundColor: ["#7c3aed", "#6d28d9", "#4338ca"], borderRadius: 4 }]
           },
           options: {
-            responsive: true,
-            maintainAspectRatio: false,
+            responsive: true, maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
               x: { grid: { display: false }, ticks: { color: t, font: { size: 12 } } },
@@ -56,7 +51,6 @@ function ChartRenderer() {
           }
         });
       }
-
       var el3 = document.getElementById("roiChart");
       if (el3 && !el3._done) {
         el3._done = true;
@@ -66,17 +60,12 @@ function ChartRenderer() {
             labels: ["M1","M2","M3","M4","M5","M6","M7","M8","M9","M10","M11","M12"],
             datasets: [{
               data: [0.2, 0.4, 0.7, 1.0, 1.3, 1.7, 2.1, 2.5, 2.9, 3.2, 3.5, 3.8],
-              borderColor: "#4338ca",
-              backgroundColor: "rgba(67,56,202,0.08)",
-              fill: true,
-              tension: 0.4,
-              pointRadius: 3,
-              pointBackgroundColor: "#4338ca"
+              borderColor: "#4338ca", backgroundColor: "rgba(67,56,202,0.08)",
+              fill: true, tension: 0.4, pointRadius: 3, pointBackgroundColor: "#4338ca"
             }]
           },
           options: {
-            responsive: true,
-            maintainAspectRatio: false,
+            responsive: true, maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
               x: { grid: { color: g }, ticks: { color: t, font: { size: 11 } } },
@@ -153,13 +142,13 @@ const areas = [
        limits:["Per diem rate accuracy depends on rule table maintenance","Unusual circumstances require human judgment","Receipt quality affects data extraction accuracy","Travel management system integration required"]},
       {name:"Cleo",icon:"SR",module:"Separation & Retirement",trigger:"Retirement Notification",
        what:"Manages offboarding and retirement processing workflows triggered by separation notifications, coordinating tasks across HR, IT, security, finance, and benefits to ensure complete and compliant offboarding.",
-       problem:"Prevents gaps in offboarding that create security, financial, or compliance risks — active system accounts, unpaid final pay, or incomplete retirement paperwork — by orchestrating all steps from a single trigger.",
+       problem:"Prevents gaps in offboarding that create security, financial, or compliance risks by orchestrating all steps from a single trigger.",
        users:["HR specialists","Security / FSO staff","IT administrators","Payroll and benefits teams","Supervisors"],
        capabilities:["Triggers multi-stakeholder offboarding task sequences","Coordinates clearance revocation and IT access termination","Calculates final pay, leave payouts, and benefits continuation","Tracks task completion across departments","Generates retirement documentation packages"],
        inputs:["Separation or retirement notice","Employee record and service history","Final leave balance data","Benefits continuation elections","IT asset inventory","Clearance and access records"],
        outputs:["Offboarding task completion tracker","Final pay calculation package","Clearance revocation request","IT access termination confirmation","Benefits transition documentation","Audit log"],
        maturity:"Production-ready. Handles voluntary separation, retirement, and RIF offboarding scenarios.",
-       limits:["Retirement benefit calculations require current OPM rule accuracy","Clearance revocation timelines depend on security office capacity","Complex cases (disability retirement, LWOP credit) require specialist handling","Requires HRIS, IT provisioning, and security clearance system integration"]},
+       limits:["Retirement benefit calculations require current OPM rule accuracy","Clearance revocation timelines depend on security office capacity","Complex cases require specialist handling","Requires HRIS, IT provisioning, and security clearance system integration"]},
     ]
   },
   {
@@ -337,15 +326,15 @@ const areaIcons = {
 
 function AgentDetail({ agent: a, area, onBack, onHome }) {
   var c = area.color;
-  function Row(props) {
+  function Row({ label, items }) {
     return (
-      <div style={{ background:"var(--color-background-secondary)", borderRadius:8, padding:"14px 16px" }}>
-        <div style={{ fontSize:10, fontWeight:500, color:"var(--color-text-tertiary)", letterSpacing:"0.08em", marginBottom:8 }}>{props.label}</div>
-        {props.items.map(function(x,i) {
+      <div style={{ background:"#f9fafb", borderRadius:8, padding:"14px 16px" }}>
+        <div style={{ fontSize:10, fontWeight:500, color:"#9ca3af", letterSpacing:"0.08em", marginBottom:8 }}>{label}</div>
+        {items.map(function(x,i) {
           return (
             <div key={i} style={{ display:"flex", gap:8, marginBottom:5, alignItems:"flex-start" }}>
               <span style={{ color:c, fontSize:12, flexShrink:0, marginTop:2 }}>›</span>
-              <span style={{ fontSize:13, color:"var(--color-text-primary)", lineHeight:1.5 }}>{x}</span>
+              <span style={{ fontSize:13, color:"#111827", lineHeight:1.5 }}>{x}</span>
             </div>
           );
         })}
@@ -354,7 +343,7 @@ function AgentDetail({ agent: a, area, onBack, onHome }) {
   }
   return (
     <div style={{ padding:"24px 28px", maxWidth:860, margin:"0 auto" }}>
-      <div style={{ background:"var(--color-background-primary)", border:"0.5px solid var(--color-border-tertiary)", borderRadius:12, overflow:"hidden" }}>
+      <div style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:12, overflow:"hidden" }}>
         <div style={{ background:c, padding:"22px 26px", display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:16 }}>
           <div>
             <div style={{ fontSize:10, color:"rgba(255,255,255,0.6)", fontWeight:500, letterSpacing:"0.1em", marginBottom:4 }}>{area.label} · {area.full.toUpperCase()} · CAPABILITY SHEET</div>
@@ -366,12 +355,12 @@ function AgentDetail({ agent: a, area, onBack, onHome }) {
         <div style={{ padding:"22px 26px", display:"flex", flexDirection:"column", gap:14 }}>
           <div style={{ background:area.light, borderLeft:"3px solid "+c, borderRadius:"0 8px 8px 0", padding:"14px 16px" }}>
             <div style={{ fontSize:10, fontWeight:500, color:c, letterSpacing:"0.08em", marginBottom:6 }}>WHAT IT DOES</div>
-            <p style={{ margin:0, fontSize:13, color:"var(--color-text-primary)", lineHeight:1.65 }}>{a.what}</p>
+            <p style={{ margin:0, fontSize:13, color:"#111827", lineHeight:1.65 }}>{a.what}</p>
           </div>
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:14 }}>
             <div style={{ background:area.light, borderRadius:8, padding:"14px 16px" }}>
               <div style={{ fontSize:10, fontWeight:500, color:c, letterSpacing:"0.08em", marginBottom:6 }}>BUSINESS PROBLEM SOLVED</div>
-              <p style={{ margin:0, fontSize:13, color:"var(--color-text-primary)", lineHeight:1.65 }}>{a.problem}</p>
+              <p style={{ margin:0, fontSize:13, color:"#111827", lineHeight:1.65 }}>{a.problem}</p>
             </div>
             <div style={{ background:area.light, borderRadius:8, padding:"14px 16px" }}>
               <div style={{ fontSize:10, fontWeight:500, color:c, letterSpacing:"0.08em", marginBottom:8 }}>IDEAL USER / OPERATOR</div>
@@ -379,20 +368,20 @@ function AgentDetail({ agent: a, area, onBack, onHome }) {
                 return (
                   <div key={i} style={{ display:"flex", gap:8, marginBottom:5, alignItems:"flex-start" }}>
                     <span style={{ color:c, fontSize:12, flexShrink:0, marginTop:2 }}>›</span>
-                    <span style={{ fontSize:13, color:"var(--color-text-primary)", lineHeight:1.5 }}>{u}</span>
+                    <span style={{ fontSize:13, color:"#111827", lineHeight:1.5 }}>{u}</span>
                   </div>
                 );
               })}
             </div>
           </div>
-          <div style={{ background:"var(--color-background-secondary)", borderRadius:8, padding:"14px 16px" }}>
-            <div style={{ fontSize:10, fontWeight:500, color:"var(--color-text-tertiary)", letterSpacing:"0.08em", marginBottom:8 }}>KEY FEATURES & CAPABILITIES</div>
+          <div style={{ background:"#f9fafb", borderRadius:8, padding:"14px 16px" }}>
+            <div style={{ fontSize:10, fontWeight:500, color:"#9ca3af", letterSpacing:"0.08em", marginBottom:8 }}>KEY FEATURES & CAPABILITIES</div>
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"4px 24px" }}>
               {a.capabilities.map(function(x,i) {
                 return (
                   <div key={i} style={{ display:"flex", gap:8, marginBottom:5, alignItems:"flex-start" }}>
                     <span style={{ color:c, fontSize:12, flexShrink:0, marginTop:2 }}>›</span>
-                    <span style={{ fontSize:13, color:"var(--color-text-primary)", lineHeight:1.5 }}>{x}</span>
+                    <span style={{ fontSize:13, color:"#111827", lineHeight:1.5 }}>{x}</span>
                   </div>
                 );
               })}
@@ -404,7 +393,7 @@ function AgentDetail({ agent: a, area, onBack, onHome }) {
           </div>
           <div style={{ background:"#f0fdf4", border:"0.5px solid #bbf7d0", borderRadius:8, padding:"14px 16px" }}>
             <div style={{ fontSize:10, fontWeight:500, color:"#16a34a", letterSpacing:"0.08em", marginBottom:6 }}>MATURITY & READINESS</div>
-            <p style={{ margin:0, fontSize:13, color:"var(--color-text-primary)", lineHeight:1.65 }}>{a.maturity}</p>
+            <p style={{ margin:0, fontSize:13, color:"#111827", lineHeight:1.65 }}>{a.maturity}</p>
           </div>
           <div style={{ background:"#fff7ed", border:"0.5px solid #fed7aa", borderRadius:8, padding:"14px 16px" }}>
             <div style={{ fontSize:10, fontWeight:500, color:"#c2410c", letterSpacing:"0.08em", marginBottom:8 }}>LIMITATIONS, DEPENDENCIES & IMPLEMENTATION REQUIREMENTS</div>
@@ -413,17 +402,17 @@ function AgentDetail({ agent: a, area, onBack, onHome }) {
                 return (
                   <div key={i} style={{ display:"flex", gap:8, marginBottom:5, alignItems:"flex-start" }}>
                     <span style={{ color:"#c2410c", fontSize:12, flexShrink:0, marginTop:2 }}>›</span>
-                    <span style={{ fontSize:13, color:"var(--color-text-primary)", lineHeight:1.5 }}>{x}</span>
+                    <span style={{ fontSize:13, color:"#111827", lineHeight:1.5 }}>{x}</span>
                   </div>
                 );
               })}
             </div>
           </div>
           <div style={{ display:"flex", gap:8, paddingTop:4 }}>
-            <button onClick={onBack} style={{ fontSize:12, padding:"7px 16px", borderRadius:6, border:"0.5px solid "+area.border, color:c, cursor:"pointer", background:"var(--color-background-primary)" }}>
+            <button onClick={onBack} style={{ fontSize:12, padding:"7px 16px", borderRadius:6, border:"0.5px solid "+area.border, color:c, cursor:"pointer", background:"#fff" }}>
               Back to {area.label} agents
             </button>
-            <button onClick={onHome} style={{ fontSize:12, padding:"7px 16px", borderRadius:6, border:"0.5px solid var(--color-border-tertiary)", color:"var(--color-text-secondary)", cursor:"pointer", background:"var(--color-background-primary)" }}>
+            <button onClick={onHome} style={{ fontSize:12, padding:"7px 16px", borderRadius:6, border:"0.5px solid #e5e7eb", color:"#6b7280", cursor:"pointer", background:"#fff" }}>
               Home
             </button>
           </div>
@@ -549,9 +538,8 @@ var agentRunData = {
 
 function RunDetail({ run, agent: ag, onBack }) {
   var c = ag.color;
-  var ms = useState([]); var msgs = ms[0]; var setMsgs = ms[1];
-  var is = useState(""); var input = is[0]; var setInput = is[1];
-  var stageColors = ["#22c55e","#22c55e","#f59e0b","#e5e7eb"];
+  var [msgs, setMsgs] = useState([]);
+  var [input, setInput] = useState("");
 
   function sendMsg() {
     if (!input.trim()) return;
@@ -567,47 +555,44 @@ function RunDetail({ run, agent: ag, onBack }) {
 
   return (
     <div style={{ padding:"0 32px 32px", maxWidth:960, margin:"0 auto" }}>
-      {/* Back row */}
       <div style={{ display:"flex", alignItems:"center", gap:10, padding:"20px 0 16px" }}>
-        <button onClick={onBack} style={{ fontSize:12, padding:"6px 12px", borderRadius:6, border:"0.5px solid var(--color-border-secondary)", color:"var(--color-text-secondary)", cursor:"pointer", background:"var(--color-background-primary)", display:"flex", alignItems:"center", gap:5 }}>
+        <button onClick={onBack} style={{ fontSize:12, padding:"6px 12px", borderRadius:6, border:"0.5px solid #e5e7eb", color:"#6b7280", cursor:"pointer", background:"#fff", display:"flex", alignItems:"center", gap:5 }}>
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M8 10.5L4.5 7 8 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           Back to {ag.name}
         </button>
-        <span style={{ fontSize:11, color:"var(--color-text-tertiary)" }}>›</span>
+        <span style={{ fontSize:11, color:"#9ca3af" }}>›</span>
         <span style={{ fontSize:12, color:c, fontWeight:500 }}>{run.ref}</span>
-        <span style={{ fontSize:11, color:"var(--color-text-tertiary)" }}>· {run.desc}</span>
+        <span style={{ fontSize:11, color:"#9ca3af" }}>· {run.desc}</span>
       </div>
 
-      {/* Transaction details */}
-      <div style={{ background:"var(--color-background-primary)", border:"0.5px solid var(--color-border-tertiary)", borderRadius:10, padding:"18px 20px", marginBottom:16 }}>
-        <div style={{ fontSize:13, fontWeight:500, color:"var(--color-text-primary)", marginBottom:14 }}>Transaction details</div>
+      <div style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:10, padding:"18px 20px", marginBottom:16 }}>
+        <div style={{ fontSize:13, fontWeight:500, color:"#111827", marginBottom:14 }}>Transaction details</div>
         <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:"10px 24px" }}>
           {run.details.map(function(d,i) {
             return (
               <div key={i}>
-                <div style={{ fontSize:11, color:"var(--color-text-tertiary)", marginBottom:2 }}>{d.label}</div>
-                <div style={{ fontSize:13, color:"var(--color-text-primary)", fontWeight:500 }}>{d.val}</div>
+                <div style={{ fontSize:11, color:"#9ca3af", marginBottom:2 }}>{d.label}</div>
+                <div style={{ fontSize:13, color:"#111827", fontWeight:500 }}>{d.val}</div>
               </div>
             );
           })}
         </div>
       </div>
 
-      {/* Processing timeline */}
-      <div style={{ background:"var(--color-background-primary)", border:"0.5px solid var(--color-border-tertiary)", borderRadius:10, padding:"18px 20px", marginBottom:16 }}>
-        <div style={{ fontSize:13, fontWeight:500, color:"var(--color-text-primary)", marginBottom:20 }}>Processing timeline</div>
+      <div style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:10, padding:"18px 20px", marginBottom:16 }}>
+        <div style={{ fontSize:13, fontWeight:500, color:"#111827", marginBottom:20 }}>Processing timeline</div>
         <div style={{ display:"flex", alignItems:"flex-start", gap:0, padding:"0 20px" }}>
           {run.stages.map(function(st,i) {
             var done = run.stageStatus[i];
             var active = !done && (i===0 || run.stageStatus[i-1]);
             var bg = done ? c : active ? "#f59e0b" : "#e5e7eb";
-            var textC = done ? c : active ? "#92400e" : "var(--color-text-tertiary)";
+            var textC = done ? c : active ? "#92400e" : "#9ca3af";
             return (
               <div key={i} style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", position:"relative" }}>
                 {i < run.stages.length-1 && (
                   <div style={{ position:"absolute", top:16, left:"50%", width:"100%", height:2, background: done ? c+"55" : "#e5e7eb", zIndex:0 }}></div>
                 )}
-                <div style={{ width:32, height:32, borderRadius:"50%", background: done ? c+"18" : active ? "#fef3c7" : "var(--color-background-secondary)", border:"2px solid "+bg, display:"flex", alignItems:"center", justifyContent:"center", position:"relative", zIndex:1, marginBottom:8 }}>
+                <div style={{ width:32, height:32, borderRadius:"50%", background: done ? c+"18" : active ? "#fef3c7" : "#f9fafb", border:"2px solid "+bg, display:"flex", alignItems:"center", justifyContent:"center", position:"relative", zIndex:1, marginBottom:8 }}>
                   {done ? (
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-5" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   ) : (
@@ -621,11 +606,10 @@ function RunDetail({ run, agent: ag, onBack }) {
         </div>
       </div>
 
-      {/* Chat */}
-      <div style={{ background:"var(--color-background-primary)", border:"0.5px solid var(--color-border-tertiary)", borderRadius:10, overflow:"hidden" }}>
-        <div style={{ padding:"14px 20px", borderBottom:"0.5px solid var(--color-border-tertiary)" }}>
-          <div style={{ fontSize:13, fontWeight:500, color:"var(--color-text-primary)" }}>Conversation</div>
-          <div style={{ fontSize:11, color:"var(--color-text-tertiary)" }}>Between {ag.name} (AI agent) and the end user</div>
+      <div style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:10, overflow:"hidden" }}>
+        <div style={{ padding:"14px 20px", borderBottom:"0.5px solid #e5e7eb" }}>
+          <div style={{ fontSize:13, fontWeight:500, color:"#111827" }}>Conversation</div>
+          <div style={{ fontSize:11, color:"#9ca3af" }}>Between {ag.name} (AI agent) and the end user</div>
         </div>
         <div style={{ padding:"16px 20px", display:"flex", flexDirection:"column", gap:14, minHeight:240 }}>
           {allMsgs.map(function(m,i) {
@@ -636,8 +620,8 @@ function RunDetail({ run, agent: ag, onBack }) {
                   <span style={{ fontSize:11, fontWeight:500, color:"#fff" }}>{isAgent ? ag.initials : "U"}</span>
                 </div>
                 <div style={{ maxWidth:"68%" }}>
-                  <div style={{ fontSize:10, color:"var(--color-text-tertiary)", marginBottom:3, textAlign: isAgent ? "left" : "right" }}>{m.name} · {m.time}</div>
-                  <div style={{ background: isAgent ? ag.light : "#f3f4f6", borderRadius: isAgent ? "0 10px 10px 10px" : "10px 0 10px 10px", padding:"10px 14px", fontSize:13, color:"var(--color-text-primary)", lineHeight:1.5 }}>
+                  <div style={{ fontSize:10, color:"#9ca3af", marginBottom:3, textAlign: isAgent ? "left" : "right" }}>{m.name} · {m.time}</div>
+                  <div style={{ background: isAgent ? ag.light : "#f3f4f6", borderRadius: isAgent ? "0 10px 10px 10px" : "10px 0 10px 10px", padding:"10px 14px", fontSize:13, color:"#111827", lineHeight:1.5 }}>
                     {m.msg}
                   </div>
                 </div>
@@ -645,10 +629,10 @@ function RunDetail({ run, agent: ag, onBack }) {
             );
           })}
         </div>
-        <div style={{ padding:"12px 16px", borderTop:"0.5px solid var(--color-border-tertiary)", display:"flex", gap:8, alignItems:"center" }}>
+        <div style={{ padding:"12px 16px", borderTop:"0.5px solid #e5e7eb", display:"flex", gap:8, alignItems:"center" }}>
           <input value={input} onChange={function(e) { setInput(e.target.value); }}
             onKeyDown={function(e) { if (e.key==="Enter") sendMsg(); }}
-            placeholder={"Message "+ag.name+"..."} style={{ flex:1, fontSize:13, padding:"8px 12px", borderRadius:8, border:"0.5px solid var(--color-border-secondary)", background:"var(--color-background-secondary)", color:"var(--color-text-primary)", outline:"none" }} />
+            placeholder={"Message "+ag.name+"..."} style={{ flex:1, fontSize:13, padding:"8px 12px", borderRadius:8, border:"0.5px solid #d1d5db", background:"#f9fafb", color:"#111827", outline:"none" }} />
           <button onClick={sendMsg} style={{ padding:"8px 16px", borderRadius:8, background:c, border:"none", cursor:"pointer", color:"#fff", fontSize:12, fontWeight:500 }}>Send</button>
         </div>
       </div>
@@ -658,7 +642,7 @@ function RunDetail({ run, agent: ag, onBack }) {
 
 function AgentMonitor({ agent: ag, onBack }) {
   var c = ag.color;
-  var rds = useState(null); var selectedRun = rds[0]; var setSelectedRun = rds[1];
+  var [selectedRun, setSelectedRun] = useState(null);
   var runHistory = agentRunData[ag.name] ? agentRunData[ag.name].runs : [];
   var exceptions = [
     { type:"Price mismatch", ref:"INV-2024-003", severity:"high" },
@@ -683,9 +667,8 @@ function AgentMonitor({ agent: ag, onBack }) {
 
   return (
     <div style={{ padding:"0 32px 32px", maxWidth:960, margin:"0 auto" }}>
-      {/* Back + agent name row */}
       <div style={{ padding:"20px 0 16px" }}>
-        <button onClick={onBack} style={{ fontSize:12, padding:"6px 12px", borderRadius:6, border:"0.5px solid var(--color-border-secondary)", color:"var(--color-text-secondary)", cursor:"pointer", background:"var(--color-background-primary)", display:"inline-flex", alignItems:"center", gap:5, marginBottom:14 }}>
+        <button onClick={onBack} style={{ fontSize:12, padding:"6px 12px", borderRadius:6, border:"0.5px solid #e5e7eb", color:"#6b7280", cursor:"pointer", background:"#fff", display:"inline-flex", alignItems:"center", gap:5, marginBottom:14 }}>
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M8 10.5L4.5 7 8 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           Back to Platform Preview
         </button>
@@ -694,7 +677,7 @@ function AgentMonitor({ agent: ag, onBack }) {
             <span style={{ fontSize:14, fontWeight:500, color:"#fff" }}>{ag.initials}</span>
           </div>
           <div>
-            <div style={{ fontSize:20, fontWeight:500, color:"var(--color-text-primary)" }}>{ag.name}</div>
+            <div style={{ fontSize:20, fontWeight:500, color:"#111827" }}>{ag.name}</div>
             <div style={{ fontSize:12, color:c }}>{ag.role}</div>
           </div>
           <span style={{ background:"#dcfce7", color:"#166534", borderRadius:10, padding:"3px 10px", fontSize:11, fontWeight:500, marginLeft:4 }}>Active</span>
@@ -702,12 +685,11 @@ function AgentMonitor({ agent: ag, onBack }) {
         </div>
       </div>
 
-      {/* KPI row */}
       <div style={{ display:"grid", gridTemplateColumns:"repeat(4,minmax(0,1fr))", gap:12, marginBottom:20 }}>
         {ag.stats.map(function(s,i) {
           return (
-            <div key={i} style={{ background:"var(--color-background-primary)", border:"0.5px solid var(--color-border-tertiary)", borderRadius:10, padding:"16px", borderTop:"3px solid "+c }}>
-              <div style={{ fontSize:11, color:"var(--color-text-tertiary)", marginBottom:4 }}>{s.label}</div>
+            <div key={i} style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:10, padding:"16px", borderTop:"3px solid "+c }}>
+              <div style={{ fontSize:11, color:"#9ca3af", marginBottom:4 }}>{s.label}</div>
               <div style={{ fontSize:22, fontWeight:500, color:c }}>{s.val}</div>
             </div>
           );
@@ -715,34 +697,32 @@ function AgentMonitor({ agent: ag, onBack }) {
       </div>
 
       <div style={{ display:"grid", gridTemplateColumns:"1fr 320px", gap:16, marginBottom:20 }}>
-        {/* Process overview */}
-        <div style={{ background:"var(--color-background-primary)", border:"0.5px solid var(--color-border-tertiary)", borderRadius:10, padding:"18px 20px" }}>
-          <div style={{ fontSize:13, fontWeight:500, color:"var(--color-text-primary)", marginBottom:4 }}>Process overview</div>
-          <div style={{ fontSize:11, color:"var(--color-text-tertiary)", marginBottom:24 }}>Current pipeline stage distribution</div>
+        <div style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:10, padding:"18px 20px" }}>
+          <div style={{ fontSize:13, fontWeight:500, color:"#111827", marginBottom:4 }}>Process overview</div>
+          <div style={{ fontSize:11, color:"#9ca3af", marginBottom:24 }}>Current pipeline stage distribution</div>
           <div style={{ display:"flex", alignItems:"flex-start", padding:"0 10px" }}>
             {stages.map(function(st,i) {
               return (
                 <div key={i} style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", position:"relative" }}>
                   {i < stages.length-1 && <div style={{ position:"absolute", top:8, left:"50%", width:"100%", height:2, background: i<2 ? c+"55":"#e5e7eb", zIndex:0 }}></div>}
-                  <div style={{ width:18, height:18, borderRadius:"50%", background: i<3 ? c : c+"44", border:"2px solid var(--color-background-primary)", position:"relative", zIndex:1, marginBottom:8 }}></div>
+                  <div style={{ width:18, height:18, borderRadius:"50%", background: i<3 ? c : c+"44", border:"2px solid #fff", position:"relative", zIndex:1, marginBottom:8 }}></div>
                   <div style={{ fontSize:11, fontWeight:500, color:c, textAlign:"center", maxWidth:90 }}>{st}</div>
-                  <div style={{ fontSize:11, color:"var(--color-text-tertiary)", marginTop:2 }}>{stageCounts[i]} requests</div>
+                  <div style={{ fontSize:11, color:"#9ca3af", marginTop:2 }}>{stageCounts[i]} requests</div>
                 </div>
               );
             })}
           </div>
         </div>
-        {/* Exceptions */}
-        <div style={{ background:"var(--color-background-primary)", border:"0.5px solid var(--color-border-tertiary)", borderRadius:10, padding:"18px 20px" }}>
-          <div style={{ fontSize:13, fontWeight:500, color:"var(--color-text-primary)", marginBottom:4 }}>Recent exceptions</div>
-          <div style={{ fontSize:11, color:"var(--color-text-tertiary)", marginBottom:14 }}>Pending human review</div>
+        <div style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:10, padding:"18px 20px" }}>
+          <div style={{ fontSize:13, fontWeight:500, color:"#111827", marginBottom:4 }}>Recent exceptions</div>
+          <div style={{ fontSize:11, color:"#9ca3af", marginBottom:14 }}>Pending human review</div>
           {exceptions.map(function(ex,i) {
             return (
-              <div key={i} style={{ display:"flex", alignItems:"center", gap:10, padding:"10px 12px", background:"var(--color-background-secondary)", borderRadius:8, marginBottom:8 }}>
+              <div key={i} style={{ display:"flex", alignItems:"center", gap:10, padding:"10px 12px", background:"#f9fafb", borderRadius:8, marginBottom:8 }}>
                 <div style={{ width:8, height:8, borderRadius:"50%", background: ex.severity==="high" ? "#ef4444" : "#f59e0b", flexShrink:0 }}></div>
                 <div style={{ flex:1 }}>
-                  <div style={{ fontSize:12, fontWeight:500, color:"var(--color-text-primary)" }}>{ex.type}</div>
-                  <div style={{ fontSize:11, color:"var(--color-text-tertiary)" }}>{ex.ref}</div>
+                  <div style={{ fontSize:12, fontWeight:500, color:"#111827" }}>{ex.type}</div>
+                  <div style={{ fontSize:11, color:"#9ca3af" }}>{ex.ref}</div>
                 </div>
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </div>
@@ -751,15 +731,14 @@ function AgentMonitor({ agent: ag, onBack }) {
         </div>
       </div>
 
-      {/* Run history — clickable rows */}
-      <div style={{ background:"var(--color-background-primary)", border:"0.5px solid var(--color-border-tertiary)", borderRadius:10, padding:"18px 20px" }}>
-        <div style={{ fontSize:13, fontWeight:500, color:"var(--color-text-primary)", marginBottom:4 }}>Run history</div>
-        <div style={{ fontSize:11, color:"var(--color-text-tertiary)", marginBottom:16 }}>Click any row to view process detail and conversation</div>
+      <div style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:10, padding:"18px 20px" }}>
+        <div style={{ fontSize:13, fontWeight:500, color:"#111827", marginBottom:4 }}>Run history</div>
+        <div style={{ fontSize:11, color:"#9ca3af", marginBottom:16 }}>Click any row to view process detail and conversation</div>
         <table style={{ width:"100%", borderCollapse:"collapse", fontSize:12 }}>
           <thead>
-            <tr style={{ borderBottom:"0.5px solid var(--color-border-tertiary)" }}>
+            <tr style={{ borderBottom:"0.5px solid #e5e7eb" }}>
               {["Execution start","Status","Duration","Description","Reference"].map(function(h) {
-                return <th key={h} style={{ padding:"8px 12px", textAlign:"left", fontSize:11, fontWeight:500, color:"var(--color-text-tertiary)", letterSpacing:"0.05em" }}>{h}</th>;
+                return <th key={h} style={{ padding:"8px 12px", textAlign:"left", fontSize:11, fontWeight:500, color:"#9ca3af", letterSpacing:"0.05em" }}>{h}</th>;
               })}
             </tr>
           </thead>
@@ -768,18 +747,20 @@ function AgentMonitor({ agent: ag, onBack }) {
               var sc = statusColor(r.status);
               return (
                 <tr key={i} onClick={function() { setSelectedRun(r); }}
-                  style={{ borderBottom:"0.5px solid var(--color-border-tertiary)", cursor:"pointer" }}
-                  onMouseEnter={function(e) { e.currentTarget.style.background="var(--color-background-secondary)"; }}
+                  style={{ borderBottom:"0.5px solid #e5e7eb", cursor:"pointer" }}
+                  onMouseEnter={function(e) { e.currentTarget.style.background="#f9fafb"; }}
                   onMouseLeave={function(e) { e.currentTarget.style.background="transparent"; }}>
-                  <td style={{ padding:"12px 12px", color:"var(--color-text-secondary)", whiteSpace:"nowrap" }}>{r.date}</td>
+                  <td style={{ padding:"12px 12px", color:"#6b7280", whiteSpace:"nowrap" }}>{r.date}</td>
                   <td style={{ padding:"12px 12px" }}>
                     <span style={{ background:sc.bg, color:sc.color, borderRadius:10, padding:"3px 10px", fontSize:11, fontWeight:500 }}>{r.status}</span>
                   </td>
-                  <td style={{ padding:"12px 12px", color:"var(--color-text-secondary)" }}>{r.duration}</td>
-                  <td style={{ padding:"12px 12px", color:"var(--color-text-primary)" }}>{r.desc}</td>
-                  <td style={{ padding:"12px 12px", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
-                    <span style={{ color:c, fontWeight:500 }}>{r.ref}</span>
-                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M4.5 2.5L8 6.5 4.5 10.5" stroke={c} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  <td style={{ padding:"12px 12px", color:"#6b7280" }}>{r.duration}</td>
+                  <td style={{ padding:"12px 12px", color:"#111827" }}>{r.desc}</td>
+                  <td style={{ padding:"12px 12px" }}>
+                    <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+                      <span style={{ color:c, fontWeight:500 }}>{r.ref}</span>
+                      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M4.5 2.5L8 6.5 4.5 10.5" stroke={c} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </div>
                   </td>
                 </tr>
               );
@@ -792,12 +773,12 @@ function AgentMonitor({ agent: ag, onBack }) {
 }
 
 export default function Dashboard() {
-  var ts = useState("catalog"); var mainTab = ts[0]; var setMainTab = ts[1];
-  var ps = useState("overview"); var previewView = ps[0]; var setPreviewView = ps[1];
-  var sas = useState(null); var selectedAgent = sas[0]; var setSelectedAgent = sas[1];
-  var vs = useState("home"); var view = vs[0]; var setView = vs[1];
-  var as = useState(null); var activeArea = as[0]; var setActiveArea = as[1];
-  var ags = useState(null); var activeAgent = ags[0]; var setActiveAgent = ags[1];
+  var [mainTab, setMainTab] = useState("catalog");
+  var [previewView, setPreviewView] = useState("overview");
+  var [selectedAgent, setSelectedAgent] = useState(null);
+  var [view, setView] = useState("home");
+  var [activeArea, setActiveArea] = useState(null);
+  var [activeAgent, setActiveAgent] = useState(null);
 
   function goHome() { setView("home"); setActiveArea(null); setActiveAgent(null); }
   function goArea(area) { setActiveArea(area); setActiveAgent(null); setView("area"); }
@@ -806,36 +787,34 @@ export default function Dashboard() {
   var accentPurple = "#7c3aed";
 
   return (
-    <div style={{ fontFamily:"var(--font-sans)", minHeight:"100vh", background:"var(--color-background-tertiary)" }}>
+    <div style={{ fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif", minHeight:"100vh", background:"#f3f4f6" }}>
 
       {/* Top nav */}
-      <div style={{ background:"var(--color-background-primary)", borderBottom:"0.5px solid var(--color-border-tertiary)", padding:"0 24px", display:"flex", alignItems:"center", height:52 }}>
-        <div style={{ display:"flex", alignItems:"center", gap:8, padding:"0 16px 0 0", borderRight:"0.5px solid var(--color-border-tertiary)", marginRight:16, flexShrink:0 }}>
+      <div style={{ background:"#fff", borderBottom:"0.5px solid #e5e7eb", padding:"0 24px", display:"flex", alignItems:"center", height:52 }}>
+        <div style={{ display:"flex", alignItems:"center", gap:8, padding:"0 16px 0 0", borderRight:"0.5px solid #e5e7eb", marginRight:16, flexShrink:0 }}>
           <div style={{ width:26, height:26, background:"linear-gradient(135deg,#7c3aed,#4338ca)", borderRadius:6, display:"flex", alignItems:"center", justifyContent:"center" }}>
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1" y="1" width="4" height="4" rx="1" fill="white"/><rect x="8" y="1" width="4" height="4" rx="1" fill="white"/><rect x="1" y="8" width="4" height="4" rx="1" fill="white"/><rect x="8" y="8" width="4" height="4" rx="1" fill="white"/></svg>
           </div>
-          <span style={{ fontSize:13, fontWeight:500, color:"var(--color-text-primary)" }}>Beecker Agents</span>
+          <span style={{ fontSize:13, fontWeight:500, color:"#111827" }}>Beecker Agents</span>
         </div>
 
-        {/* Main tabs */}
         <div style={{ display:"flex", gap:0, height:"100%" }}>
           {[["catalog","AI Agent Catalog"],["preview","Platform Preview"]].map(function(item) {
             var active = mainTab === item[0];
             return (
               <button key={item[0]} onClick={function() { setMainTab(item[0]); if (item[0]==="catalog") goHome(); }}
-                style={{ height:"100%", padding:"0 18px", background:"none", border:"none", borderBottom: active ? "2px solid "+accentPurple : "2px solid transparent", cursor:"pointer", fontSize:13, fontWeight: active ? 500 : 400, color: active ? accentPurple : "var(--color-text-secondary)", transition:"all 0.15s" }}>
+                style={{ height:"100%", padding:"0 18px", background:"none", border:"none", borderBottom: active ? "2px solid "+accentPurple : "2px solid transparent", cursor:"pointer", fontSize:13, fontWeight: active ? 500 : 400, color: active ? accentPurple : "#6b7280", transition:"all 0.15s" }}>
                 {item[1]}
               </button>
             );
           })}
         </div>
 
-        {/* Area nav — only in catalog */}
         {mainTab === "catalog" && (
           <div style={{ marginLeft:"auto", display:"flex", gap:8, alignItems:"center" }}>
             {activeArea && (
-              <span style={{ fontSize:12, color:"var(--color-text-tertiary)", marginRight:4 }}>
-                <button onClick={goHome} style={{ background:"none", border:"none", cursor:"pointer", fontSize:12, color:"var(--color-text-secondary)", padding:0 }}>Home</button>
+              <span style={{ fontSize:12, color:"#9ca3af", marginRight:4 }}>
+                <button onClick={goHome} style={{ background:"none", border:"none", cursor:"pointer", fontSize:12, color:"#6b7280", padding:0 }}>Home</button>
                 {" › "}
                 <button onClick={function() { goArea(activeArea); }} style={{ background:"none", border:"none", cursor:"pointer", fontSize:12, color:activeArea.color, padding:0 }}>{activeArea.label}</button>
                 {view === "agent" && activeAgent ? " › " + activeAgent.name : ""}
@@ -844,7 +823,7 @@ export default function Dashboard() {
             {areas.map(function(a) {
               return (
                 <button key={a.id} onClick={function() { goArea(a); }}
-                  style={{ background: activeArea && activeArea.id===a.id ? a.color+"18":"none", border:"0.5px solid", borderColor: activeArea && activeArea.id===a.id ? a.border:"var(--color-border-tertiary)", borderRadius:6, cursor:"pointer", padding:"4px 12px", fontSize:12, fontWeight:500, color: activeArea && activeArea.id===a.id ? a.color:"var(--color-text-secondary)" }}>
+                  style={{ background: activeArea && activeArea.id===a.id ? a.color+"18":"none", border:"0.5px solid", borderColor: activeArea && activeArea.id===a.id ? a.border:"#e5e7eb", borderRadius:6, cursor:"pointer", padding:"4px 12px", fontSize:12, fontWeight:500, color: activeArea && activeArea.id===a.id ? a.color:"#6b7280" }}>
                   {a.label}
                 </button>
               );
@@ -859,31 +838,31 @@ export default function Dashboard() {
           {view === "home" && (
             <div style={{ padding:"40px 32px", maxWidth:960, margin:"0 auto" }}>
               <div style={{ marginBottom:28 }}>
-                <div style={{ fontSize:11, fontWeight:500, color:"var(--color-text-tertiary)", letterSpacing:"0.08em", marginBottom:6 }}>BEECKER AUTONOMOUS AGENTS</div>
-                <h1 style={{ margin:"0 0 8px", fontSize:26, fontWeight:500, color:"var(--color-text-primary)" }}>AI Agent Catalog</h1>
-                <p style={{ margin:0, fontSize:14, color:"var(--color-text-secondary)", maxWidth:520 }}>24 production-ready agents automating end-to-end enterprise processes. Select a process area to explore agents and view full capability sheets.</p>
+                <div style={{ fontSize:11, fontWeight:500, color:"#9ca3af", letterSpacing:"0.08em", marginBottom:6 }}>BEECKER AUTONOMOUS AGENTS</div>
+                <h1 style={{ margin:"0 0 8px", fontSize:26, fontWeight:500, color:"#111827" }}>AI Agent Catalog</h1>
+                <p style={{ margin:0, fontSize:14, color:"#6b7280", maxWidth:520 }}>24 production-ready agents automating end-to-end enterprise processes. Select a process area to explore agents and view full capability sheets.</p>
               </div>
               <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:16 }}>
                 {areas.map(function(a) {
                   return (
                     <button key={a.id} onClick={function() { goArea(a); }}
-                      style={{ background:"var(--color-background-primary)", border:"0.5px solid var(--color-border-tertiary)", borderRadius:12, padding:"24px 20px", textAlign:"left", cursor:"pointer" }}
+                      style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:12, padding:"24px 20px", textAlign:"left", cursor:"pointer" }}
                       onMouseEnter={function(e) { e.currentTarget.style.borderColor=a.border; }}
-                      onMouseLeave={function(e) { e.currentTarget.style.borderColor="var(--color-border-tertiary)"; }}>
+                      onMouseLeave={function(e) { e.currentTarget.style.borderColor="#e5e7eb"; }}>
                       <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", marginBottom:16 }}>
                         <div style={{ color:a.color, background:a.light, borderRadius:10, width:46, height:46, display:"flex", alignItems:"center", justifyContent:"center" }}>
                           {areaIcons[a.id]}
                         </div>
                         <span style={{ background:a.light, color:a.color, borderRadius:6, padding:"3px 10px", fontSize:11, fontWeight:500 }}>{a.agents.length} agents</span>
                       </div>
-                      <div style={{ fontSize:17, fontWeight:500, color:"var(--color-text-primary)", marginBottom:3 }}>{a.label}</div>
+                      <div style={{ fontSize:17, fontWeight:500, color:"#111827", marginBottom:3 }}>{a.label}</div>
                       <div style={{ fontSize:12, color:a.color, marginBottom:8 }}>{a.full}</div>
-                      <p style={{ margin:"0 0 14px", fontSize:13, color:"var(--color-text-secondary)", lineHeight:1.55 }}>{a.desc}</p>
+                      <p style={{ margin:"0 0 14px", fontSize:13, color:"#6b7280", lineHeight:1.55 }}>{a.desc}</p>
                       <div style={{ display:"flex", flexWrap:"wrap", gap:4 }}>
                         {a.agents.slice(0,4).map(function(ag) {
-                          return <span key={ag.name} style={{ background:"var(--color-background-secondary)", border:"0.5px solid var(--color-border-tertiary)", borderRadius:5, padding:"2px 8px", fontSize:11, color:"var(--color-text-secondary)" }}>{ag.name}</span>;
+                          return <span key={ag.name} style={{ background:"#f9fafb", border:"0.5px solid #e5e7eb", borderRadius:5, padding:"2px 8px", fontSize:11, color:"#6b7280" }}>{ag.name}</span>;
                         })}
-                        {a.agents.length > 4 && <span style={{ fontSize:11, color:"var(--color-text-tertiary)", padding:"2px 4px" }}>+{a.agents.length-4} more</span>}
+                        {a.agents.length > 4 && <span style={{ fontSize:11, color:"#9ca3af", padding:"2px 4px" }}>+{a.agents.length-4} more</span>}
                       </div>
                     </button>
                   );
@@ -899,24 +878,24 @@ export default function Dashboard() {
                   {areaIcons[activeArea.id]}
                 </div>
                 <div>
-                  <div style={{ fontSize:10, color:"var(--color-text-tertiary)", fontWeight:500, letterSpacing:"0.07em" }}>{activeArea.label}</div>
-                  <h2 style={{ margin:0, fontSize:19, fontWeight:500, color:"var(--color-text-primary)" }}>{activeArea.full}</h2>
+                  <div style={{ fontSize:10, color:"#9ca3af", fontWeight:500, letterSpacing:"0.07em" }}>{activeArea.label}</div>
+                  <h2 style={{ margin:0, fontSize:19, fontWeight:500, color:"#111827" }}>{activeArea.full}</h2>
                 </div>
               </div>
-              <p style={{ margin:"0 0 22px", fontSize:13, color:"var(--color-text-secondary)" }}>{activeArea.desc} Click any agent for their full capability sheet.</p>
+              <p style={{ margin:"0 0 22px", fontSize:13, color:"#6b7280" }}>{activeArea.desc} Click any agent for their full capability sheet.</p>
               <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(175px,1fr))", gap:12 }}>
                 {activeArea.agents.map(function(ag) {
                   return (
                     <button key={ag.name} onClick={function() { goAgent(ag); }}
-                      style={{ background:"var(--color-background-primary)", border:"0.5px solid var(--color-border-tertiary)", borderRadius:12, padding:"16px 14px", textAlign:"left", cursor:"pointer" }}
+                      style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:12, padding:"16px 14px", textAlign:"left", cursor:"pointer" }}
                       onMouseEnter={function(e) { e.currentTarget.style.borderColor=activeArea.border; e.currentTarget.style.background=activeArea.light; }}
-                      onMouseLeave={function(e) { e.currentTarget.style.borderColor="var(--color-border-tertiary)"; e.currentTarget.style.background="var(--color-background-primary)"; }}>
+                      onMouseLeave={function(e) { e.currentTarget.style.borderColor="#e5e7eb"; e.currentTarget.style.background="#fff"; }}>
                       <div style={{ width:34, height:34, background:activeArea.color+"18", borderRadius:7, display:"flex", alignItems:"center", justifyContent:"center", marginBottom:10 }}>
                         <span style={{ fontSize:11, fontWeight:500, color:activeArea.color }}>{ag.icon}</span>
                       </div>
-                      <div style={{ fontSize:14, fontWeight:500, color:"var(--color-text-primary)", marginBottom:2 }}>{ag.name}</div>
+                      <div style={{ fontSize:14, fontWeight:500, color:"#111827", marginBottom:2 }}>{ag.name}</div>
                       <div style={{ fontSize:11, color:activeArea.color, marginBottom:6 }}>{ag.module}</div>
-                      <div style={{ fontSize:10, color:"var(--color-text-tertiary)", lineHeight:1.4 }}>Trigger: {ag.trigger}</div>
+                      <div style={{ fontSize:10, color:"#9ca3af", lineHeight:1.4 }}>Trigger: {ag.trigger}</div>
                     </button>
                   );
                 })}
@@ -934,43 +913,35 @@ export default function Dashboard() {
       {mainTab === "preview" && previewView === "overview" && (
         <div style={{ padding:"40px 32px", maxWidth:960, margin:"0 auto" }}>
           <div style={{ marginBottom:28 }}>
-            <div style={{ fontSize:11, fontWeight:500, color:"var(--color-text-tertiary)", letterSpacing:"0.08em", marginBottom:6 }}>BEECKER AUTONOMOUS AGENTS</div>
-            <h1 style={{ margin:"0 0 8px", fontSize:26, fontWeight:500, color:"var(--color-text-primary)" }}>Platform Preview</h1>
-            <p style={{ margin:0, fontSize:14, color:"var(--color-text-secondary)", maxWidth:520 }}>Illustrative benchmark metrics, performance data, and a live look at deployed agents in action.</p>
+            <div style={{ fontSize:11, fontWeight:500, color:"#9ca3af", letterSpacing:"0.08em", marginBottom:6 }}>BEECKER AUTONOMOUS AGENTS</div>
+            <h1 style={{ margin:"0 0 8px", fontSize:26, fontWeight:500, color:"#111827" }}>Platform Preview</h1>
+            <p style={{ margin:0, fontSize:14, color:"#6b7280", maxWidth:520 }}>Illustrative benchmark metrics, performance data, and a live look at deployed agents in action.</p>
           </div>
 
-          {/* Charts */}
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:16, marginBottom:28 }}>
-            <div style={{ background:"var(--color-background-primary)", border:"0.5px solid var(--color-border-tertiary)", borderRadius:10, padding:"16px" }}>
-              <div style={{ fontSize:12, fontWeight:500, color:"var(--color-text-primary)", marginBottom:2 }}>Cycle time: manual vs automated</div>
-              <div style={{ fontSize:11, color:"var(--color-text-tertiary)", marginBottom:10 }}>Days to complete, by process</div>
-              <div style={{ display:"flex", gap:12, marginBottom:10 }}>
-                <span style={{ display:"flex", alignItems:"center", gap:4, fontSize:11, color:"var(--color-text-secondary)" }}><span style={{ width:10, height:10, borderRadius:2, background:"#d1d5db", display:"inline-block" }}></span>Manual</span>
-                <span style={{ display:"flex", alignItems:"center", gap:4, fontSize:11, color:"var(--color-text-secondary)" }}><span style={{ width:10, height:10, borderRadius:2, background:"#7c3aed", display:"inline-block" }}></span>Automated</span>
-              </div>
-              <div style={{ position:"relative", width:"100%", height:180 }}><canvas id="cycleChart"></canvas></div>
-            </div>
-            <div style={{ background:"var(--color-background-primary)", border:"0.5px solid var(--color-border-tertiary)", borderRadius:10, padding:"16px" }}>
-              <div style={{ fontSize:12, fontWeight:500, color:"var(--color-text-primary)", marginBottom:2 }}>Estimated annual savings</div>
-              <div style={{ fontSize:11, color:"var(--color-text-tertiary)", marginBottom:10 }}>USD thousands, by process area</div>
-              <div style={{ display:"flex", gap:12, marginBottom:10 }}>
-                <span style={{ display:"flex", alignItems:"center", gap:4, fontSize:11, color:"var(--color-text-secondary)" }}><span style={{ width:10, height:10, borderRadius:2, background:"#7c3aed", display:"inline-block" }}></span>H2R</span>
-                <span style={{ display:"flex", alignItems:"center", gap:4, fontSize:11, color:"var(--color-text-secondary)" }}><span style={{ width:10, height:10, borderRadius:2, background:"#6d28d9", display:"inline-block" }}></span>P2P</span>
-                <span style={{ display:"flex", alignItems:"center", gap:4, fontSize:11, color:"var(--color-text-secondary)" }}><span style={{ width:10, height:10, borderRadius:2, background:"#4338ca", display:"inline-block" }}></span>O2C</span>
-              </div>
-              <div style={{ position:"relative", width:"100%", height:180 }}><canvas id="savingsChart"></canvas></div>
-            </div>
-            <div style={{ background:"var(--color-background-primary)", border:"0.5px solid var(--color-border-tertiary)", borderRadius:10, padding:"16px" }}>
-              <div style={{ fontSize:12, fontWeight:500, color:"var(--color-text-primary)", marginBottom:2 }}>Cumulative ROI over 12 months</div>
-              <div style={{ fontSize:11, color:"var(--color-text-tertiary)", marginBottom:10 }}>Return multiplier from go-live</div>
-              <div style={{ display:"flex", gap:12, marginBottom:10 }}>
-                <span style={{ display:"flex", alignItems:"center", gap:4, fontSize:11, color:"var(--color-text-secondary)" }}><span style={{ width:10, height:10, borderRadius:2, background:"#4338ca", display:"inline-block" }}></span>ROI (x)</span>
-              </div>
-              <div style={{ position:"relative", width:"100%", height:180 }}><canvas id="roiChart"></canvas></div>
-            </div>
+            {[
+              { id:"cycleChart", title:"Cycle time: manual vs automated", sub:"Days to complete, by process",
+                legend:[{color:"#d1d5db",label:"Manual"},{color:"#7c3aed",label:"Automated"}] },
+              { id:"savingsChart", title:"Estimated annual savings", sub:"USD thousands, by process area",
+                legend:[{color:"#7c3aed",label:"H2R"},{color:"#6d28d9",label:"P2P"},{color:"#4338ca",label:"O2C"}] },
+              { id:"roiChart", title:"Cumulative ROI over 12 months", sub:"Return multiplier from go-live",
+                legend:[{color:"#4338ca",label:"ROI (x)"}] },
+            ].map(function(ch) {
+              return (
+                <div key={ch.id} style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:10, padding:"16px" }}>
+                  <div style={{ fontSize:12, fontWeight:500, color:"#111827", marginBottom:2 }}>{ch.title}</div>
+                  <div style={{ fontSize:11, color:"#9ca3af", marginBottom:10 }}>{ch.sub}</div>
+                  <div style={{ display:"flex", gap:12, marginBottom:10 }}>
+                    {ch.legend.map(function(l) {
+                      return <span key={l.label} style={{ display:"flex", alignItems:"center", gap:4, fontSize:11, color:"#6b7280" }}><span style={{ width:10, height:10, borderRadius:2, background:l.color, display:"inline-block" }}></span>{l.label}</span>;
+                    })}
+                  </div>
+                  <div style={{ position:"relative", width:"100%", height:180 }}><canvas id={ch.id}></canvas></div>
+                </div>
+              );
+            })}
           </div>
 
-          {/* KPIs */}
           <div style={{ display:"grid", gridTemplateColumns:"repeat(4,minmax(0,1fr))", gap:12, marginBottom:36 }}>
             {[
               { value:"78%", label:"Reduction in manual processing time", sub:"Across H2R, P2P, O2C", color:"#7c3aed" },
@@ -979,19 +950,18 @@ export default function Dashboard() {
               { value:"62%", label:"Lower cost-per-transaction", sub:"vs fully manual baseline", color:"#4338ca" },
             ].map(function(k,i) {
               return (
-                <div key={i} style={{ background:"var(--color-background-primary)", border:"0.5px solid var(--color-border-tertiary)", borderRadius:10, padding:"16px 16px 14px", borderTop:"3px solid "+k.color }}>
+                <div key={i} style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:10, padding:"16px 16px 14px", borderTop:"3px solid "+k.color }}>
                   <div style={{ fontSize:24, fontWeight:500, color:k.color, marginBottom:4 }}>{k.value}</div>
-                  <div style={{ fontSize:12, color:"var(--color-text-primary)", lineHeight:1.45, marginBottom:5 }}>{k.label}</div>
-                  <div style={{ fontSize:11, color:"var(--color-text-tertiary)" }}>{k.sub}</div>
+                  <div style={{ fontSize:12, color:"#111827", lineHeight:1.45, marginBottom:5 }}>{k.label}</div>
+                  <div style={{ fontSize:11, color:"#9ca3af" }}>{k.sub}</div>
                 </div>
               );
             })}
           </div>
 
-          {/* Sample deployed agents */}
           <div style={{ marginBottom:14 }}>
-            <div style={{ fontSize:11, fontWeight:500, color:"var(--color-text-tertiary)", letterSpacing:"0.08em", marginBottom:4 }}>SAMPLE DEPLOYED AGENTS</div>
-            <p style={{ margin:"0 0 16px", fontSize:13, color:"var(--color-text-secondary)" }}>Click any agent to view their live monitoring dashboard.</p>
+            <div style={{ fontSize:11, fontWeight:500, color:"#9ca3af", letterSpacing:"0.08em", marginBottom:4 }}>SAMPLE DEPLOYED AGENTS</div>
+            <p style={{ margin:"0 0 16px", fontSize:13, color:"#6b7280" }}>Click any agent to view their live monitoring dashboard.</p>
           </div>
           <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:16 }}>
             {[
@@ -1007,16 +977,15 @@ export default function Dashboard() {
             ].map(function(ag) {
               return (
                 <button key={ag.name} onClick={function() { setSelectedAgent(ag); setPreviewView("agent"); }}
-                  style={{ background:"var(--color-background-primary)", border:"0.5px solid var(--color-border-tertiary)", borderRadius:12, padding:0, textAlign:"left", cursor:"pointer", overflow:"hidden" }}
+                  style={{ background:"#fff", border:"0.5px solid #e5e7eb", borderRadius:12, padding:0, textAlign:"left", cursor:"pointer", overflow:"hidden" }}
                   onMouseEnter={function(e) { e.currentTarget.style.borderColor=ag.border; }}
-                  onMouseLeave={function(e) { e.currentTarget.style.borderColor="var(--color-border-tertiary)"; }}>
-                  {/* Agent header */}
-                  <div style={{ background:ag.light, padding:"16px 18px", display:"flex", alignItems:"center", gap:12, borderBottom:"0.5px solid var(--color-border-tertiary)" }}>
+                  onMouseLeave={function(e) { e.currentTarget.style.borderColor="#e5e7eb"; }}>
+                  <div style={{ background:ag.light, padding:"16px 18px", display:"flex", alignItems:"center", gap:12, borderBottom:"0.5px solid #e5e7eb" }}>
                     <div style={{ width:44, height:44, borderRadius:"50%", background:ag.color, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
                       <span style={{ fontSize:14, fontWeight:500, color:"#fff" }}>{ag.initials}</span>
                     </div>
                     <div style={{ flex:1, minWidth:0 }}>
-                      <div style={{ fontSize:15, fontWeight:500, color:"var(--color-text-primary)" }}>{ag.name}</div>
+                      <div style={{ fontSize:15, fontWeight:500, color:"#111827" }}>{ag.name}</div>
                       <div style={{ fontSize:11, color:ag.color }}>{ag.role}</div>
                     </div>
                     <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-end", gap:4 }}>
@@ -1024,20 +993,18 @@ export default function Dashboard() {
                       <span style={{ background:ag.light, color:ag.color, borderRadius:6, padding:"2px 7px", fontSize:10 }}>{ag.area}</span>
                     </div>
                   </div>
-                  {/* Stats grid */}
                   <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:0 }}>
                     {ag.stats.map(function(s,i) {
                       return (
-                        <div key={i} style={{ padding:"12px 16px", borderRight: i%2===0 ? "0.5px solid var(--color-border-tertiary)" : "none", borderBottom: i<2 ? "0.5px solid var(--color-border-tertiary)" : "none" }}>
-                          <div style={{ fontSize:10, color:"var(--color-text-tertiary)", marginBottom:3 }}>{s.label}</div>
+                        <div key={i} style={{ padding:"12px 16px", borderRight: i%2===0 ? "0.5px solid #e5e7eb" : "none", borderBottom: i<2 ? "0.5px solid #e5e7eb" : "none" }}>
+                          <div style={{ fontSize:10, color:"#9ca3af", marginBottom:3 }}>{s.label}</div>
                           <div style={{ fontSize:16, fontWeight:500, color:ag.color }}>{s.val}</div>
                         </div>
                       );
                     })}
                   </div>
-                  {/* Footer */}
-                  <div style={{ padding:"10px 18px", borderTop:"0.5px solid var(--color-border-tertiary)", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
-                    <span style={{ fontSize:11, color:"var(--color-text-tertiary)" }}>{ag.exceptions} exception{ag.exceptions!==1?"s":""} pending review</span>
+                  <div style={{ padding:"10px 18px", borderTop:"0.5px solid #e5e7eb", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+                    <span style={{ fontSize:11, color:"#9ca3af" }}>{ag.exceptions} exception{ag.exceptions!==1?"s":""} pending review</span>
                     <span style={{ fontSize:11, color:ag.color, fontWeight:500 }}>View dashboard →</span>
                   </div>
                 </button>
@@ -1055,4 +1022,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
